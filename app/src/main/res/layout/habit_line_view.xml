@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:id="@+id/name"
+        style="?android:textAppearanceMedium"
+        android:layout_width="wrap_content"
+        android:layout_weight="4"
+        android:layout_height="wrap_content"
+        android:text="text"
+        android:layout_marginLeft="10dp"
+        android:visibility="visible" />
+
+    <CheckBox android:id="@+id/button1" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/button2" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/button3" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/button4" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/button5" style="@style/habit_line_checkbox"/>
+</merge>
