@@ -11,8 +11,6 @@ import android.widget.TextView;
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 
-import java.util.Arrays;
-
 import static com.example.android.habittracker.R.layout.habit_line_view;
 
 /**
@@ -41,7 +39,7 @@ public class HabitLineView extends LinearLayout {
                 Intent intent = new Intent(getContext(), EditHabitActivity.class);
                // EditText editText = (EditText) findViewById(R.id.edit_message);
                // String message = editText.getText().toString();
-                int i = Arrays.asList(Settings.global.habits).indexOf(_habit);
+                int i = Settings.global.habits.indexOf(_habit);
                 intent.putExtra("habit_number", i);
                 ((Activity)getContext()).startActivityForResult(intent, 0);
             }

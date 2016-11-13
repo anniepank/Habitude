@@ -31,7 +31,7 @@ public class EditHabitActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         int habit_number = intent.getIntExtra("habit_number", -1);
-        edit_habit = Settings.global.habits[habit_number];
+        edit_habit = Settings.global.habits.get(habit_number);
         e.setText(edit_habit.habitName);
     }
 }
