@@ -1,12 +1,17 @@
 package com.example.android.habittracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.android.habittracker.data.Habit;
+import com.example.android.habittracker.data.Settings;
+
+import java.util.Arrays;
 
 import static com.example.android.habittracker.R.layout.habit_line_view;
 
@@ -15,24 +20,17 @@ import static com.example.android.habittracker.R.layout.habit_line_view;
  */
 
 public class HabitLineView extends LinearLayout {
-    public HabitLineView(Context context) {
+    private TextView textView;
+    private Habit _habit;
+
+    public HabitLineView(Context context, Habit habit){
         super(context);
+        _habit = habit;
         loadView(); // Input == load
     }
 
-    public HabitLineView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        loadView();
-    }
 
-    public HabitLineView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        loadView();
-    }
-
-    private TextView textView;
-
-    public void loadView() { //InputView
+    public void loadView() {
         LayoutInflater.from(getContext()).inflate(habit_line_view, this, true);
         this.setPadding(0, 0, 0, 10);
         textView = (TextView)findViewById(R.id.name);
@@ -43,20 +41,18 @@ public class HabitLineView extends LinearLayout {
                 Intent intent = new Intent(getContext(), EditHabitActivity.class);
                // EditText editText = (EditText) findViewById(R.id.edit_message);
                // String message = editText.getText().toString();
-                //intent.putExtra(EXTRA_MESSAGE, message);
-                getContext().startActivity(intent);
+                int i = Arrays.asList(Settings.global.habits).indexOf(_habit);
+                intent.putExtra("habit_number", i);
+                ((Activity)getContext()).startActivityForResult(intent, 0);
             }
         });
 
     }
 
     //update habit in Habit Line View
-    public void update(Habit habit) {
-        textView.setText(habit.habitName);
+    public void update() {
+        textView.setText(_habit.habitName);
     }
-
-
-
 }
 
 

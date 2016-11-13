@@ -7,6 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.example.android.habittracker.data.Habit;
+import com.example.android.habittracker.data.Settings;
+
 public class HabitsFragment extends Fragment {
     private LinearLayout mainScroll;
 
@@ -31,17 +34,19 @@ public class HabitsFragment extends Fragment {
         one.habits[2] = habit_c;
         refreshView(one);
 
+        Settings.global = one;
+
         return rootView;
     }
 
     public void refreshView(Settings settings) {
         mainScroll.removeAllViews();
         for (int i = 0; i < settings.habits.length; i++) {
-            HabitLineView hlv = new HabitLineView(getContext());
+            HabitLineView hlv = new HabitLineView(getContext(), settings.habits[i]);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             hlv.setLayoutParams(params);
             mainScroll.addView(hlv);
-            hlv.update(settings.habits[i]);
+            hlv.update();
         }
     }
 

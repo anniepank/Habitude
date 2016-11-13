@@ -1,5 +1,6 @@
 package com.example.android.habittracker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,6 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.android.habittracker.data.Settings;
 
 public class MainActivity extends AppCompatActivity {
     /**
@@ -25,17 +28,22 @@ public class MainActivity extends AppCompatActivity {
      */
     private PagerAdapter mPagerAdapter;
 
+    private HabitsFragment habitsFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        habitsFragment = new HabitsFragment();
         // Instantiate a ViewPager and a PagerAdapter.
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
+        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), habitsFragment);
         mPager.setAdapter(mPagerAdapter);
+    }
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        habitsFragment.refreshView(Settings.global);
     }
 
     @Override
@@ -55,14 +63,16 @@ public class MainActivity extends AppCompatActivity {
      * sequence.
      */
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        public ScreenSlidePagerAdapter(FragmentManager fm) {
+        private HabitsFragment _habits_fragment;
+        public ScreenSlidePagerAdapter(FragmentManager fm, HabitsFragment habitsFragment) {
             super(fm);
+            _habits_fragment = habitsFragment;
         }
 
         @Override
         public Fragment getItem(int position) {
-            if (position == 0) return new HabitsFragment();
-            if (position == 1) return new MainFragment();
+            if (position == 0) return _habits_fragment;
+            if (position == 1) return new SecondFragment();
             return null;
         }
 
