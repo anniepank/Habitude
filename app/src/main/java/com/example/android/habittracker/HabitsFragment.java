@@ -11,8 +11,6 @@ import android.widget.LinearLayout;
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 
-import java.util.LinkedList;
-
 public class HabitsFragment extends Fragment {
     private LinearLayout mainScroll;
     private Button button;
@@ -25,27 +23,18 @@ public class HabitsFragment extends Fragment {
         button = (Button) rootView.findViewById(R.id.new_habit);
         //create new object in settings with an array "one"
         //there are 3 habits in array one
-        Settings one = new Settings();
-        one.habits = new LinkedList<> ();
-        Habit habit_a = new Habit();
-        Habit habit_b = new Habit();
-        Habit habit_c = new Habit();
-        habit_a.habitName = "habit_a";
-        habit_b.habitName = "habit_b";
-        habit_c.habitName = "habit_c";
-        one.habits.add(habit_a);
-        one.habits.add(habit_b);
-        one.habits.add(habit_c);
-        refreshView(one);
 
-        Settings.global = one;
+        Settings settings = Settings.load(getContext());
+        Settings.global = settings;
 
+        refreshView(settings);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Habit habit = new Habit();
                 habit.habitName = "New habit";
                 Settings.global.habits.add(habit);
+                Settings.global.save(getContext());
                 refreshView(Settings.global);
             }
         });

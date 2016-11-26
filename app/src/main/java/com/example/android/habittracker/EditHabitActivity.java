@@ -25,6 +25,7 @@ public class EditHabitActivity extends AppCompatActivity {
                 if (actionId == 0 || actionId == 6) {
                     edit_habit.habitName = e.getText().toString();
                     EditHabitActivity.this.finish();
+                    Settings.global.save(EditHabitActivity.this);
                 }
                 return false;
             }
