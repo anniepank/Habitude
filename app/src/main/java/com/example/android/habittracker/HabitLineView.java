@@ -5,11 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
+
+import java.util.Date;
 
 import static com.example.android.habittracker.R.layout.habit_line_view;
 
@@ -20,11 +23,12 @@ import static com.example.android.habittracker.R.layout.habit_line_view;
 public class HabitLineView extends LinearLayout {
     private TextView textView;
     private Habit _habit;
+    private CheckBox[] checkBoxes;
 
     public HabitLineView(Context context, Habit habit){
         super(context);
         _habit = habit;
-        loadView(); // Input == load
+        loadView();
     }
 
 
@@ -44,12 +48,37 @@ public class HabitLineView extends LinearLayout {
                 ((Activity)getContext()).startActivityForResult(intent, 0);
             }
         });
+        checkBoxes = new CheckBox[5];
+        checkBoxes[0] = (CheckBox)findViewById(R.id.checkbox1);
+        checkBoxes[1] = (CheckBox)findViewById(R.id.checkbox2);
+        checkBoxes[2] = (CheckBox)findViewById(R.id.checkbox3);
+        checkBoxes[3] = (CheckBox)findViewById(R.id.checkbox4);
+        checkBoxes[4] = (CheckBox)findViewById(R.id.checkbox5);
 
+        for(int i = 0; i < 5; i++) {
+            final int i2 = i;
+            checkBoxes[i].setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    long day = getToday()  - (4 - i2);
+                    _habit.toggleDay(day);
+                    Settings.global.save(getContext());
+                }
+            });
+        }
+    }
+
+    private long getToday() {
+        return new Date().getTime() / (24*60*60*1000);
     }
 
     //update habit in Habit Line View
     public void update() {
         textView.setText(_habit.habitName);
+        for(int i = 0; i < 5; i++) {
+            checkBoxes[i].setChecked(_habit.days.contains(getToday() - 4 + i));
+        }
+
     }
 }
 

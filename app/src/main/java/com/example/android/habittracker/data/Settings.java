@@ -16,6 +16,7 @@ public class Settings {
     public LinkedList<Habit> habits;
     public static final String NAME = "Habits";
     public static final String KEY = "Settings";
+
     public void save(Context context) {
         Gson gson = new Gson();
         String json = gson.toJson(this);

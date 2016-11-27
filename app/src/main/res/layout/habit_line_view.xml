@@ -9,9 +9,9 @@
         android:layout_marginLeft="10dp"
         android:visibility="visible" />
 
-    <CheckBox android:id="@+id/button1" style="@style/habit_line_checkbox"/>
-    <CheckBox android:id="@+id/button2" style="@style/habit_line_checkbox"/>
-    <CheckBox android:id="@+id/button3" style="@style/habit_line_checkbox"/>
-    <CheckBox android:id="@+id/button4" style="@style/habit_line_checkbox"/>
-    <CheckBox android:id="@+id/button5" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/checkbox1" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/checkbox2" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/checkbox3" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/checkbox4" style="@style/habit_line_checkbox"/>
+    <CheckBox android:id="@+id/checkbox5" style="@style/habit_line_checkbox"/>
 </merge>

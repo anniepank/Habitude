@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 
+import java.util.LinkedList;
+
 public class HabitsFragment extends Fragment {
     private LinearLayout mainScroll;
     private Button button;
@@ -32,6 +34,7 @@ public class HabitsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Habit habit = new Habit();
+                habit.days = new LinkedList<>();
                 habit.habitName = "New habit";
                 Settings.global.habits.add(habit);
                 Settings.global.save(getContext());
