@@ -54,10 +54,6 @@ public class HabitsFragment extends Fragment {
             hlv.update();
         }
     }
-
-
-
-
 }
 
 
