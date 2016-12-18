@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Habit Tracker</string>
     <string name="title_activity_edit_habit">EditHabitActivity</string>
+    <string name="lorem">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum vestibulum dui, quis vulputate felis convallis a. Nulla sapien mi, placerat non diam nec, mattis placerat mauris. Donec pulvinar lorem eros, id rutrum lorem laoreet et. Aliquam euismod justo at erat mattis, ut lacinia nibh cursus. Duis at rutrum lacus. Aenean bibendum sagittis magna dictum suscipit. Nunc sed leo varius, elementum tortor vitae, semper diam. Curabitur ac nisi id justo placerat fermentum ac at lacus. Etiam a iaculis magna. Etiam tempor tincidunt justo, at scelerisque lorem bibendum nec. Ut id feugiat sapien, sit amet iaculis est.
+
+</string>
 </resources>

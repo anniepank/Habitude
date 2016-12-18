@@ -2,7 +2,9 @@ package com.example.android.habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +22,14 @@ public class EditHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
 
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+
         final EditText e = (EditText) findViewById(R.id.edit_habit_name);
         e.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -36,6 +46,8 @@ public class EditHabitActivity extends AppCompatActivity {
         int habit_number = intent.getIntExtra("habit_number", -1);
         edit_habit = Settings.global.habits.get(habit_number);
         e.setText(edit_habit.habitName);
+
+        collapsingToolbar.setTitle(edit_habit.habitName);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

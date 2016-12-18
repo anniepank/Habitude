@@ -2,84 +2,71 @@ package com.example.android.habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.LinearLayout;
 
+import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 
+import java.util.LinkedList;
+
 public class MainActivity extends AppCompatActivity {
-    /**
-     * The number of pages (wizard steps) to show in this demo.
-     */
-    private static final int NUM_PAGES = 2;
-
-    /**
-     * The pager widget, which handles animation and allows swiping horizontally to access previous
-     * and next wizard steps.
-     */
-    private ViewPager mPager;
-
-    /**
-     * The pager adapter, which provides the pages to the view pager widget.
-     */
-    private PagerAdapter mPagerAdapter;
-
-    private HabitsFragment habitsFragment;
+    private LinearLayout mainScroll;
+    private FloatingActionButton button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        habitsFragment = new HabitsFragment();
-        // Instantiate a ViewPager and a PagerAdapter.
-        mPager = (ViewPager) findViewById(R.id.pager);
-        mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager(), habitsFragment);
-        mPager.setAdapter(mPagerAdapter);
+
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        CollapsingToolbarLayout collapsingToolbar =
+                (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+
+        mainScroll  = (LinearLayout) findViewById(R.id.mainScroll);
+        button = (FloatingActionButton) findViewById(R.id.new_habit);
+        //create new object in settings with an array "one"
+        //there are 3 habits in array one
+
+        Settings settings = Settings.load(this);
+        Settings.global = settings;
+
+        refreshView(settings);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Habit habit = new Habit();
+                habit.days = new LinkedList<>();
+                habit.habitName = "New habit";
+                Settings.global.habits.add(habit);
+                Settings.global.save(MainActivity.this);
+                refreshView(Settings.global);
+            }
+        });
+
+
+
     }
 
+    public void refreshView(Settings settings) {
+        mainScroll.removeAllViews();
+        for (int i = 0; i < settings.habits.size(); i++) {
+            HabitLineView hlv = new HabitLineView(this, settings.habits.get(i));
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            hlv.setLayoutParams(params);
+            mainScroll.addView(hlv);
+            hlv.update();
+        }
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        habitsFragment.refreshView(Settings.global);
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (mPager.getCurrentItem() == 0) {
-            // If the user is currently looking at the first step, allow the system to handle the
-            // Back button. This calls finish() on this activity and pops the back stack.
-            super.onBackPressed();
-        } else {
-            // Otherwise, select the previous step.
-            mPager.setCurrentItem(mPager.getCurrentItem() - 1);
-        }
-    }
-
-    /**
-     * A simple pager adapter that represents 5 ScreenSlidePageFragment objects, in
-     * sequence.
-     */
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
-        private HabitsFragment _habits_fragment;
-        public ScreenSlidePagerAdapter(FragmentManager fm, HabitsFragment habitsFragment) {
-            super(fm);
-            _habits_fragment = habitsFragment;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            if (position == 0) return _habits_fragment;
-            if (position == 1) return new SecondFragment();
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
+        refreshView(Settings.global);
     }
 
 
