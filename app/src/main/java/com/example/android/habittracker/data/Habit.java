@@ -1,8 +1,9 @@
 package com.example.android.habittracker.data;
 
+import android.util.ArrayMap;
+
 import com.example.android.habittracker.R;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -12,12 +13,15 @@ import java.util.List;
 public class Habit {
     public String habitName;
     public List<Long> days;
-    public String type = "Other";
-    public final static HashMap<String, HabitType> namesAndImages = new HashMap<>();
+    public String type = "other";
+    public final static ArrayMap<String, HabitType> namesAndImages = new ArrayMap<>();
 
     static {
         namesAndImages.put("other", new HabitType("Other", R.drawable.cat));
         namesAndImages.put("sport", new HabitType("Sport", R.drawable.cat));
+        namesAndImages.put("nutrition", new HabitType("Nutrition", R.drawable.cat));
+        namesAndImages.put("jogging", new HabitType("Jogging", R.drawable.cat));
+        namesAndImages.put("meditation", new HabitType("Meditation", R.drawable.cat));
     }
     public void toggleDay(long day){
         if(days.contains(day)) {

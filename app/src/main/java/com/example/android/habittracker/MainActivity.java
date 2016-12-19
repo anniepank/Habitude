@@ -44,13 +44,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
-                startActivity(intent);
-              /*  Habit habit = new Habit();
-                habit.days = new LinkedList<>();
-                habit.habitName = "New habit";
-                Settings.global.habits.add(habit);
-                Settings.global.save(MainActivity.this);
-                refreshView(Settings.global);*/
+                startActivityForResult(intent, 0);
             }
         });
 
