@@ -10,14 +10,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
-
-import java.util.LinkedList;
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mainScroll;
     private FloatingActionButton button;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         ImageOfTheDay.uploadImage(imageView);
-        
+
         Settings settings = Settings.load(this);
         Settings.global = settings;
 
@@ -45,12 +43,14 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Habit habit = new Habit();
+                Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
+                startActivity(intent);
+              /*  Habit habit = new Habit();
                 habit.days = new LinkedList<>();
                 habit.habitName = "New habit";
                 Settings.global.habits.add(habit);
                 Settings.global.save(MainActivity.this);
-                refreshView(Settings.global);
+                refreshView(Settings.global);*/
             }
         });
 

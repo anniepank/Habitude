@@ -31,4 +31,32 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="habit_type_item">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">100dp</item>
+    </style>
+
+    <style name="habit_type_item_img">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="habit_type_item_txt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:textSize">30dp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="habit_type_item_txt_right" parent="habit_type_item_txt">
+        <item name="android:layout_alignParentLeft">false</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+
 </resources>

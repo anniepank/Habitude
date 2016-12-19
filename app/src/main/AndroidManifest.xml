@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.habittracker">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -16,8 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditHabitActivity"
-            ></activity>
+        <activity android:name=".EditHabitActivity" />
+        <activity android:name=".NewHabitActivity"></activity>
     </application>
 
 </manifest>
