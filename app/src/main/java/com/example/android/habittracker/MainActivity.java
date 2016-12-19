@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.android.habittracker.data.Habit;
@@ -34,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         //create new object in settings with an array "one"
         //there are 3 habits in array one
 
+        ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+        ImageOfTheDay.uploadImage(imageView);
+        
         Settings settings = Settings.load(this);
         Settings.global = settings;
 
