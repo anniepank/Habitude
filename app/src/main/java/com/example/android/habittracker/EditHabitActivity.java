@@ -9,29 +9,32 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 
 public class EditHabitActivity extends AppCompatActivity {
-    EditText editHabitName;
-    Habit edit_habit;
+    EditText editHabitNameView;
+    Habit currentHabit;
+    ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
 
-
+        editHabitNameView = (EditText) findViewById(R.id.edit_habit_name);
+        imageView = (ImageView) findViewById(R.id.backdrop);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing);
 
-        editHabitName = (EditText) findViewById(R.id.edit_habit_name);
-        editHabitName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        editHabitNameView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == 0 || actionId == 6) {
@@ -42,11 +45,12 @@ public class EditHabitActivity extends AppCompatActivity {
         });
         Intent intent = getIntent();
         int habit_number = intent.getIntExtra("habit_number", -1);
-        edit_habit = Settings.global.habits.get(habit_number);
-        editHabitName.setText(edit_habit.habitName);
-
-        collapsingToolbar.setTitle(edit_habit.habitName);
+        currentHabit = Settings.global.habits.get(habit_number);
+        editHabitNameView.setText(currentHabit.habitName);
+        imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
+        collapsingToolbar.setTitle(currentHabit.habitName);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -56,21 +60,22 @@ public class EditHabitActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete) {
-            Settings.global.habits.remove(edit_habit);
+            Settings.global.habits.remove(currentHabit);
             Settings.global.save(this);
             finish();
         }
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             saveAndFinish();
         }
         return true;
     }
 
     public void saveAndFinish() {
-        edit_habit.habitName = editHabitName.getText().toString();
+        currentHabit.habitName = editHabitNameView.getText().toString();
         EditHabitActivity.this.finish();
         Settings.global.save(EditHabitActivity.this);
     }
+
     @Override
     public void onBackPressed() {
         saveAndFinish();

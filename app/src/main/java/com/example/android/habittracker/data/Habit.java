@@ -17,11 +17,11 @@ public class Habit {
     public final static ArrayMap<String, HabitType> namesAndImages = new ArrayMap<>();
 
     static {
-        namesAndImages.put("other", new HabitType("Other", R.drawable.cat));
-        namesAndImages.put("sport", new HabitType("Sport", R.drawable.cat));
-        namesAndImages.put("nutrition", new HabitType("Nutrition", R.drawable.cat));
-        namesAndImages.put("jogging", new HabitType("Jogging", R.drawable.cat));
-        namesAndImages.put("meditation", new HabitType("Meditation", R.drawable.cat));
+        namesAndImages.put("other", new HabitType("Other", R.drawable.other));
+        namesAndImages.put("sport", new HabitType("Sport", R.drawable.sport));
+        namesAndImages.put("nutrition", new HabitType("Nutrition", R.drawable.nutrition));
+        namesAndImages.put("jogging", new HabitType("Jogging", R.drawable.jogging));
+        namesAndImages.put("meditation", new HabitType("Meditation", R.drawable.meditation));
     }
     public void toggleDay(long day){
         if(days.contains(day)) {
