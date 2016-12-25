@@ -2,6 +2,7 @@ package com.example.android.habittracker;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,17 +15,27 @@ import android.widget.TextView;
 
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
+import com.samsistemas.calendarview.decor.DayDecorator;
+import com.samsistemas.calendarview.widget.CalendarView;
+import com.samsistemas.calendarview.widget.DayView;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 public class EditHabitActivity extends AppCompatActivity {
     EditText editHabitNameView;
     Habit currentHabit;
     ImageView imageView;
+    CalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
 
+        calendarView = (CalendarView) findViewById(R.id.calendar_view);
         editHabitNameView = (EditText) findViewById(R.id.edit_habit_name);
         imageView = (ImageView) findViewById(R.id.backdrop);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -49,6 +60,20 @@ public class EditHabitActivity extends AppCompatActivity {
         editHabitNameView.setText(currentHabit.habitName);
         imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
         collapsingToolbar.setTitle(currentHabit.habitName);
+
+        DayDecorator dayDecorator = new DayDecorator() {
+            @Override
+            public void decorate(@NonNull DayView dayView) {
+                Date date = dayView.getDate();
+                long date_long = date.getTime() / (24 * 60 * 60 * 1000);
+                if (currentHabit.days.contains(date_long))
+                    dayView.setBackgroundColor(0xff0000);
+            }
+        };
+        List<DayDecorator> listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio = new LinkedList<>();
+        listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio.add(dayDecorator);
+        calendarView.setDecoratorsList(listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio);
+        calendarView.refreshCalendar(Calendar.getInstance());
     }
 
     @Override
