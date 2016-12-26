@@ -1,29 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView android:id="@+id/name"
         style="?android:textAppearanceMedium"
         android:layout_width="wrap_content"
         android:layout_weight="4"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:text="text"
         android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
         android:visibility="visible" />
 
     <com.example.android.habittracker.CircleCheckBox
         android:id="@+id/checkbox1"
-        style="@style/habit_line_checkbox"
-        android:paddingLeft="0dp"
-        app:borderThickness="2dp"
-        app:circleBorderColor="#00CFAD"
-        app:innerCircleColor="#00CFAD"
-        app:innerCircleRadius="9dp"
-        app:outerCircleColor="#6400CFAD"
-        app:outerCircleRadius="3dp"
-        app:showOuterCircle="true"
-        app:textSize="16dp"
-        app:tickColor="#ffffff"
-        app:tickThickness="1dp" />
+        style="@style/habit_line_checkbox" />
 
     <com.example.android.habittracker.CircleCheckBox
         android:id="@+id/checkbox2"
