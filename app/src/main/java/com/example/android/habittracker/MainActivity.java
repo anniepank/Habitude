@@ -30,8 +30,6 @@ public class MainActivity extends AppCompatActivity {
 
         mainScroll  = (LinearLayout) findViewById(R.id.mainScroll);
         button = (FloatingActionButton) findViewById(R.id.new_habit);
-        //create new object in settings with an array "one"
-        //there are 3 habits in array one
 
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         ImageOfTheDay.uploadImage(imageView);

@@ -5,15 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
@@ -27,39 +28,31 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EditHabitActivity extends AppCompatActivity {
-    EditText editHabitNameView;
     Habit currentHabit;
     ImageView imageView;
     CalendarView calendarView;
+    private FloatingActionButton button;
+    private CollapsingToolbarLayout collapsingToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
 
+        button = (FloatingActionButton) findViewById(R.id.editButton);
         calendarView = (CalendarView) findViewById(R.id.calendar_view);
-        editHabitNameView = (EditText) findViewById(R.id.edit_habit_name);
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         imageView = (ImageView) findViewById(R.id.backdrop);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        editHabitNameView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == 0 || actionId == 6) {
-                    saveAndFinish();
-                }
-                return false;
-            }
-        });
+
         Intent intent = getIntent();
         int habit_number = intent.getIntExtra("habit_number", -1);
         currentHabit = Settings.global.habits.get(habit_number);
-        editHabitNameView.setText(currentHabit.habitName);
         imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
         collapsingToolbar.setTitle(currentHabit.habitName);
 
@@ -77,6 +70,32 @@ public class EditHabitActivity extends AppCompatActivity {
         listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio.add(dayDecorator);
         calendarView.setDecoratorsList(listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio);
         calendarView.refreshCalendar(Calendar.getInstance());
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final EditText nameView = new EditText(EditHabitActivity.this);
+                new AlertDialog.Builder(EditHabitActivity.this)
+                        .setTitle("Edit name")
+                        .setView(nameView)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                String habitName = nameView.getText().toString();
+                                rename(habitName);
+                                dialog.cancel();
+                            }
+                        })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        }).create().show();
+                nameView.requestFocus();
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -117,22 +136,18 @@ public class EditHabitActivity extends AppCompatActivity {
                         }
                     })
                     .create().show();
+
         }
         if (item.getItemId() == android.R.id.home) {
-            saveAndFinish();
+            finish();
         }
         return true;
     }
 
-    public void saveAndFinish() {
-        currentHabit.habitName = editHabitNameView.getText().toString();
-        EditHabitActivity.this.finish();
-        Settings.global.save(EditHabitActivity.this);
-    }
-
-    @Override
-    public void onBackPressed() {
-        saveAndFinish();
+    public void rename(String habitName) {
+        currentHabit.habitName = habitName;
+        Settings.global.save(this);
+        collapsingToolbar.setTitle(currentHabit.habitName);
     }
 }
 
