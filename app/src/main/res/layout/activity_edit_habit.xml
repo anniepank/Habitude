@@ -51,11 +51,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.samsistemas.calendarview.widget.CalendarView
+            <com.example.android.habittracker.UnselectableCalendar
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"></com.samsistemas.calendarview.widget.CalendarView>
+                android:background="@color/colorPrimary"
+                app:selectedDayBackgroundColor="@android:color/white"
+                app:currentDayOfMonthColor="@android:color/black"
+                app:selectedDayTextColor="@android:color/black" />
 
             <TextView
                 android:layout_width="match_parent"

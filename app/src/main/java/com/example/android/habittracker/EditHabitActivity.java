@@ -1,9 +1,11 @@
 package com.example.android.habittracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
@@ -66,8 +68,9 @@ public class EditHabitActivity extends AppCompatActivity {
             public void decorate(@NonNull DayView dayView) {
                 Date date = dayView.getDate();
                 long date_long = date.getTime() / (24 * 60 * 60 * 1000);
+                dayView.setBackgroundColor(0xffffffff);
                 if (currentHabit.days.contains(date_long))
-                    dayView.setBackgroundColor(0xff0000);
+                    dayView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
             }
         };
         List<DayDecorator> listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio = new LinkedList<>();
@@ -85,9 +88,35 @@ public class EditHabitActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete) {
-            Settings.global.habits.remove(currentHabit);
-            Settings.global.save(this);
-            finish();
+            /*
+            a = new B().c.d.e
+            a = new B()
+            .c
+            .d
+            .e
+
+            B().c
+
+            (new B()).c.d.e
+             */
+            new AlertDialog.Builder(this)
+                    .setTitle("Delete")
+                    .setMessage("Do you want to delete your habit?")
+
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            Settings.global.habits.remove(currentHabit);
+                            Settings.global.save(EditHabitActivity.this);
+                            finish();
+                            dialog.dismiss();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .create().show();
         }
         if (item.getItemId() == android.R.id.home) {
             saveAndFinish();
