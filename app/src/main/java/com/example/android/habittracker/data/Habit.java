@@ -1,9 +1,8 @@
 package com.example.android.habittracker.data;
 
-import android.util.ArrayMap;
-
 import com.example.android.habittracker.R;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -14,7 +13,7 @@ public class Habit {
     public String habitName;
     public List<Long> days;
     public String type = "other";
-    public final static ArrayMap<String, HabitType> namesAndImages = new ArrayMap<>();
+    public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
 
     static {
         namesAndImages.put("other", new HabitType("Other", R.drawable.other));

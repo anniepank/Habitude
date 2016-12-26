@@ -23,7 +23,7 @@ public class NewHabitActivity extends AppCompatActivity {
             container.getChildAt(i).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    String key = Habit.namesAndImages.keyAt(j);
+                    String key = (String) Habit.namesAndImages.keySet().toArray()[j];
                     createHabit(key);
                     finish();
                 }
