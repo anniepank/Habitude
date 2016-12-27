@@ -52,7 +52,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.example.android.habittracker.UnselectableCalendar
+            <com.example.android.habittracker.CustomCalendarView
                 android:id="@+id/calendar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -15,11 +15,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.android.habittracker.data.Habit;
 import com.example.android.habittracker.data.Settings;
 import com.samsistemas.calendarview.decor.DayDecorator;
-import com.samsistemas.calendarview.widget.CalendarView;
 import com.samsistemas.calendarview.widget.DayView;
 
 import java.util.Calendar;
@@ -30,7 +30,7 @@ import java.util.List;
 public class EditHabitActivity extends AppCompatActivity {
     Habit currentHabit;
     ImageView imageView;
-    CalendarView calendarView;
+    CustomCalendarView calendarView;
     private FloatingActionButton button;
     private CollapsingToolbarLayout collapsingToolbar;
 
@@ -40,7 +40,7 @@ public class EditHabitActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_habit);
 
         button = (FloatingActionButton) findViewById(R.id.editButton);
-        calendarView = (CalendarView) findViewById(R.id.calendar_view);
+        calendarView = (CustomCalendarView) findViewById(R.id.calendar_view);
         calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         imageView = (ImageView) findViewById(R.id.backdrop);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -69,7 +69,6 @@ public class EditHabitActivity extends AppCompatActivity {
         List<DayDecorator> listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio = new LinkedList<>();
         listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio.add(dayDecorator);
         calendarView.setDecoratorsList(listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio);
-        calendarView.refreshCalendar(Calendar.getInstance());
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +95,18 @@ public class EditHabitActivity extends AppCompatActivity {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
+
+        calendarView.setOnDayOfMonthClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DayView dayView = (DayView) ((RelativeLayout) view).getChildAt(0);
+                long date = dayView.getDate().getTime() / (24 * 60 * 60 * 1000);
+                currentHabit.toggleDay(date);
+                dayView.decorate();
+            }
+        });
+        calendarView.refreshCalendar(Calendar.getInstance());
+
     }
 
     @Override
@@ -149,6 +160,7 @@ public class EditHabitActivity extends AppCompatActivity {
         Settings.global.save(this);
         collapsingToolbar.setTitle(currentHabit.habitName);
     }
+
 }
 
 
