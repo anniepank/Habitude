@@ -3,15 +3,13 @@ package com.example.android.habittracker;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.Log;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import java.io.UnsupportedEncodingException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -38,7 +36,8 @@ public class ImageOfTheDay {
             }
         });
     }
-    public static void uploadImage(final ImageView image) {
+
+    public static void loadImage(final ImageView imageView) {
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US", new AsyncHttpResponseHandler() {
 
@@ -50,20 +49,16 @@ public class ImageOfTheDay {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
+                    Gson gson = new Gson();
                     String str = new String(response, "UTF-8");
-                    Log.i("", str);
-                    String imageRegex = ".+\"url\":\"([^\"]*+)\".+";
-                    Pattern pattern = Pattern.compile(imageRegex);
-                    Matcher matcher = pattern.matcher(str);
-                    matcher.matches();
-                    String urlImage = matcher.group(1);
-                    loadImageFromUrl(urlImage, image);
-                    Log.i("", urlImage);
+                    BingImage bingImage = gson.fromJson(str, BingImage.class);
+                    String imageUrl = bingImage.images[0].url;
+
+                    loadImageFromUrl(imageUrl, imageView);
 
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
-                // called when response HTTP status is "200 OK"
             }
 
             @Override
@@ -76,5 +71,13 @@ public class ImageOfTheDay {
                 // called when request is retried
             }
         });
+    }
+
+    private class BingImage {
+        public BingImageImage[] images;
+    }
+
+    private class BingImageImage {
+        public String url;
     }
 }

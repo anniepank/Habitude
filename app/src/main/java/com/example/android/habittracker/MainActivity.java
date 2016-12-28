@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         button = (FloatingActionButton) findViewById(R.id.new_habit);
 
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
-        ImageOfTheDay.uploadImage(imageView);
+        ImageOfTheDay.loadImage(imageView);
 
         Settings settings = Settings.load(this);
         Settings.global = settings;
