@@ -1,10 +1,13 @@
 package com.example.android.habittracker;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.content.Context;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.example.android.habittracker.data.Settings;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -18,26 +21,12 @@ import cz.msebera.android.httpclient.Header;
  */
 
 public class ImageOfTheDay {
-    private static void loadImageFromUrl(String urlImage, final ImageView imageView) {
-        urlImage = "http://bing.com" + urlImage;
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(urlImage, new AsyncHttpResponseHandler() {
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(responseBody, 0, responseBody.length);
-                imageView.setColorFilter(Color.argb(128, 0, 0, 0));
-                imageView.setImageBitmap(bitmap);
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
-            }
-        });
-    }
 
     public static void loadImage(final ImageView imageView) {
+        if (!isConnected(imageView.getContext())) {
+            loadImageIfOffline(imageView);
+            return;
+        }
         AsyncHttpClient client = new AsyncHttpClient();
         client.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US", new AsyncHttpResponseHandler() {
 
@@ -53,8 +42,15 @@ public class ImageOfTheDay {
                     String str = new String(response, "UTF-8");
                     BingImage bingImage = gson.fromJson(str, BingImage.class);
                     String imageUrl = bingImage.images[0].url;
+                    imageUrl = "http://bing.com" + imageUrl;
+                    Settings.global.cachedImageOfTheDayUrl = imageUrl;
+                    Settings.global.save(imageView.getContext());
+                    imageView.setColorFilter(Color.argb(128, 0, 0, 0));
 
-                    loadImageFromUrl(imageUrl, imageView);
+                    Glide.with(imageView.getContext()).load(imageUrl)
+                            .placeholder(R.drawable.cat)
+                            .crossFade()
+                            .into(imageView);
 
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -63,14 +59,27 @@ public class ImageOfTheDay {
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] errorResponse, Throwable e) {
-                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-            }
-
-            @Override
-            public void onRetry(int retryNo) {
-                // called when request is retried
+                loadImageIfOffline(imageView);
             }
         });
+    }
+
+    private static void loadImageIfOffline(ImageView imageView) {
+        if (Settings.global.cachedImageOfTheDayUrl == null) {
+            return;
+        }
+        Glide.with(imageView.getContext()).load(Settings.global.cachedImageOfTheDayUrl)
+                .placeholder(R.drawable.cat)
+                .crossFade()
+                .into(imageView);
+    }
+
+    public static boolean isConnected(Context context) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        NetworkInfo mobileInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+
+        return ((wifiInfo != null && wifiInfo.isConnected()) || (mobileInfo != null && mobileInfo.isConnected()));
     }
 
     private class BingImage {

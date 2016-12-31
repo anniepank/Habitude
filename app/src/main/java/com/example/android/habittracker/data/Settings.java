@@ -14,6 +14,7 @@ import java.util.LinkedList;
 public class Settings {
     public static Settings global;
     public LinkedList<Habit> habits;
+    public String cachedImageOfTheDayUrl;
     public static final String NAME = "Habits";
     public static final String KEY = "Settings";
 
