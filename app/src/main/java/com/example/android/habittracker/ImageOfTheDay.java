@@ -1,9 +1,11 @@
 package com.example.android.habittracker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -31,11 +33,6 @@ public class ImageOfTheDay {
         client.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US", new AsyncHttpResponseHandler() {
 
             @Override
-            public void onStart() {
-                // called before request is started
-            }
-
-            @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
                     Gson gson = new Gson();
@@ -47,8 +44,9 @@ public class ImageOfTheDay {
                     Settings.global.save(imageView.getContext());
                     imageView.setColorFilter(Color.argb(128, 0, 0, 0));
 
+                    if (isContextDestroyed(imageView.getContext())) return;
                     Glide.with(imageView.getContext()).load(imageUrl)
-                            .placeholder(R.drawable.cat)
+                            .placeholder(R.drawable.placeholder)
                             .crossFade()
                             .into(imageView);
 
@@ -68,8 +66,9 @@ public class ImageOfTheDay {
         if (Settings.global.cachedImageOfTheDayUrl == null) {
             return;
         }
+        if (isContextDestroyed(imageView.getContext())) return;
         Glide.with(imageView.getContext()).load(Settings.global.cachedImageOfTheDayUrl)
-                .placeholder(R.drawable.cat)
+                .placeholder(R.drawable.placeholder)
                 .crossFade()
                 .into(imageView);
     }
@@ -89,4 +88,12 @@ public class ImageOfTheDay {
     private class BingImageImage {
         public String url;
     }
+
+    public static boolean isContextDestroyed(Context context) {
+        if (context instanceof Activity) {
+            return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && ((Activity) context).isDestroyed());
+        }
+        return false;
+    }
 }
+
