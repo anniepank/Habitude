@@ -10,23 +10,23 @@
         android:gravity="center_vertical"
         android:visibility="visible" />
 
-    <com.example.android.habittracker.CircleCheckBox
+    <com.github.anniepank.hability.CircleCheckBox
         android:id="@+id/checkbox1"
         style="@style/habit_line_checkbox" />
 
-    <com.example.android.habittracker.CircleCheckBox
+    <com.github.anniepank.hability.CircleCheckBox
         android:id="@+id/checkbox2"
         style="@style/habit_line_checkbox" />
 
-    <com.example.android.habittracker.CircleCheckBox
+    <com.github.anniepank.hability.CircleCheckBox
         android:id="@+id/checkbox3"
         style="@style/habit_line_checkbox" />
 
-    <com.example.android.habittracker.CircleCheckBox
+    <com.github.anniepank.hability.CircleCheckBox
         android:id="@+id/checkbox4"
         style="@style/habit_line_checkbox" />
 
-    <com.example.android.habittracker.CircleCheckBox
+    <com.github.anniepank.hability.CircleCheckBox
         android:id="@+id/checkbox5"
         style="@style/habit_line_checkbox_last" />
 </merge>
