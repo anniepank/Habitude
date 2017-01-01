@@ -9,6 +9,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash</item>
+    </style>
+
     <style name="habit_line_checkbox">
         <item name="android:layout_width">25dp</item>
         <item name="android:layout_height">60dp</item>
@@ -71,5 +75,6 @@
         <item name="android:layout_alignParentLeft">false</item>
         <item name="android:layout_alignParentRight">true</item>
     </style>
+
 
 </resources>
