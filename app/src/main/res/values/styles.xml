@@ -31,12 +31,10 @@
     </style>
 
     <style name="checkbox_for_reminder">
-        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_width">38dp</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:button">@null</item>
-        <item name="android:layout_marginRight">3dp</item>
-        <item name="android:paddingLeft">0dp</item>
         <item name="borderThickness">2dp</item>
         <item name="circleBorderColor">#00CFAD</item>
         <item name="innerCircleColor">#00CFAD</item>

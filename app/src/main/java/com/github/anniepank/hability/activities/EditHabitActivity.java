@@ -1,5 +1,6 @@
 package com.github.anniepank.hability.activities;
 
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +17,9 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TimePicker;
 
+import com.github.anniepank.hability.CircleCheckBox;
 import com.github.anniepank.hability.CustomCalendarView;
 import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.data.Habit;
@@ -35,6 +38,8 @@ public class EditHabitActivity extends AppCompatActivity {
     CustomCalendarView calendarView;
     private FloatingActionButton button;
     private CollapsingToolbarLayout collapsingToolbar;
+    private CircleCheckBox[] checkBoxes;
+    public EditText timeReminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +52,7 @@ public class EditHabitActivity extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.backdrop);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
+        timeReminder = (EditText) findViewById(R.id.time_reminder);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -109,6 +115,43 @@ public class EditHabitActivity extends AppCompatActivity {
         });
         calendarView.refreshCalendar(Calendar.getInstance());
 
+        checkBoxes = new CircleCheckBox[7];
+        checkBoxes[0] = (CircleCheckBox) findViewById(R.id.checkbox1);
+        checkBoxes[1] = (CircleCheckBox) findViewById(R.id.checkbox2);
+        checkBoxes[2] = (CircleCheckBox) findViewById(R.id.checkbox3);
+        checkBoxes[3] = (CircleCheckBox) findViewById(R.id.checkbox4);
+        checkBoxes[4] = (CircleCheckBox) findViewById(R.id.checkbox5);
+        checkBoxes[5] = (CircleCheckBox) findViewById(R.id.checkbox6);
+        checkBoxes[6] = (CircleCheckBox) findViewById(R.id.checkbox7);
+
+        for (int i = 0; i < 7; i++) {
+            final int i2 = i;
+            checkBoxes[i2].setChecked(currentHabit.remindDays[i2]);
+            checkBoxes[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkBoxes[i2].setChecked(!checkBoxes[i2].isChecked);
+                    currentHabit.remindDays[i2] = checkBoxes[i2].isChecked;
+                    Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
+                }
+            });
+        }
+        timeReminder.setText(currentHabit.reminderHours + ":" + currentHabit.reminderMinutes);
+        timeReminder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TimePickerDialog timePicker;
+                timePicker = new TimePickerDialog(EditHabitActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        timeReminder.setText(selectedHour + ":" + selectedMinute);
+                        currentHabit.reminderHours = selectedHour;
+                        currentHabit.reminderMinutes = selectedMinute;
+                    }
+                }, 5, 0, true);
+                timePicker.show();
+            }
+        });
     }
 
     @Override
