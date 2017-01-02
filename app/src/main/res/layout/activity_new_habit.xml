@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.github.anniepank.hability.NewHabitActivity">
+        tools:context="com.github.anniepank.hability.activities.NewHabitActivity">
 
         <RelativeLayout style="@style/habit_type_item">
 

@@ -1,10 +1,11 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 

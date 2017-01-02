@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.github.anniepank.hability.activities.EditHabitActivity;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 

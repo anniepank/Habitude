@@ -1,4 +1,4 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.activities;
 
 import android.app.Activity;
 import android.content.Intent;

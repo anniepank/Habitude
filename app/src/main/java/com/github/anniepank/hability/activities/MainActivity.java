@@ -1,4 +1,4 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.github.anniepank.hability.HabitLineView;
+import com.github.anniepank.hability.ImageOfTheDay;
+import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.data.Settings;
 
 public class MainActivity extends AppCompatActivity {

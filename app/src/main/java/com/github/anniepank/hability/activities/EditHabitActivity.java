@@ -1,4 +1,4 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.github.anniepank.hability.CustomCalendarView;
+import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 import com.samsistemas.calendarview.decor.DayDecorator;
