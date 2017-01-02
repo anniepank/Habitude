@@ -30,6 +30,25 @@
         <item name="tickThickness">1dp</item>
     </style>
 
+    <style name="checkbox_for_reminder">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_marginRight">3dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="borderThickness">2dp</item>
+        <item name="circleBorderColor">#00CFAD</item>
+        <item name="innerCircleColor">#00CFAD</item>
+        <item name="innerCircleRadius">15dp</item>
+        <item name="outerCircleColor">#6400CFAD</item>
+        <item name="outerCircleRadius">4dp</item>
+        <item name="showOuterCircle">true</item>
+        <item name="tickColor">#ffffff</item>
+        <item name="tickThickness">1dp</item>
+    </style>
+
+
     <style name="habit_line_checkbox_last" parent="habit_line_checkbox">
         <item name="android:layout_marginTop">0dp</item>
         <item name="android:layout_width">60dp</item>
@@ -74,6 +93,19 @@
     <style name="habit_type_item_txt_right" parent="habit_type_item_txt">
         <item name="android:layout_alignParentLeft">false</item>
         <item name="android:layout_alignParentRight">true</item>
+    </style>
+
+    <style name="column_reminder">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="text_reminder">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
 

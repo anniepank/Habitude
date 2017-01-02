@@ -61,6 +61,117 @@
                 app:currentDayOfMonthColor="@android:color/black"
                 app:selectedDayTextColor="@android:color/black" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="15dp">
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="Turn on reminder"
+                        android:textSize="22sp"
+                        android:textColor="#888"
+                        android:layout_marginTop="17dp"
+                        android:layout_marginLeft="17dp"
+                        android:layout_marginBottom="17dp"
+                        android:layout_marginRight="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/colons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp">
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox1"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            style="@style/text_reminder"
+                            android:text="Mon" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox2"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Tue"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox3"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Wed"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox4"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Thu"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox5"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Fri"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox6"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Sat"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                    <LinearLayout style="@style/column_reminder">
+
+                        <com.github.anniepank.hability.CircleCheckBox
+                            android:id="@+id/checkbox7"
+                            style="@style/checkbox_for_reminder" />
+
+                        <TextView
+                            android:text="Sun"
+                            style="@style/text_reminder" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
