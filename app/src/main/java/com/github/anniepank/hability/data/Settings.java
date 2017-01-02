@@ -12,11 +12,22 @@ import java.util.LinkedList;
  * Created by anya on 11/6/16.
  */
 public class Settings {
-    public static Settings global;
     public LinkedList<Habit> habits;
     public String cachedImageOfTheDayUrl;
     public static final String NAME = "Habits";
     public static final String KEY = "Settings";
+
+    private static boolean gotSettings = false;
+    private static Settings global;
+
+
+    public static Settings getSettings(Context context) {
+        if (!gotSettings) {
+            global = load(context);
+            gotSettings = true;
+        }
+        return global;
+    }
 
     public void save(Context context) {
         Gson gson = new Gson();
@@ -29,6 +40,7 @@ public class Settings {
     }
 
     public static Settings load(Context context) {
+        //Android settings
         SharedPreferences prefs = context.getSharedPreferences(NAME, 0);
         String json = prefs.getString(KEY, null);
         if (json == null) {

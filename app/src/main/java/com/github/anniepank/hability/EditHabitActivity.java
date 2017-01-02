@@ -52,7 +52,7 @@ public class EditHabitActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         int habit_number = intent.getIntExtra("habit_number", -1);
-        currentHabit = Settings.global.habits.get(habit_number);
+        currentHabit = Settings.getSettings(this).habits.get(habit_number);
         imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
         collapsingToolbar.setTitle(currentHabit.habitName);
 
@@ -135,8 +135,8 @@ public class EditHabitActivity extends AppCompatActivity {
 
                     .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            Settings.global.habits.remove(currentHabit);
-                            Settings.global.save(EditHabitActivity.this);
+                            Settings.getSettings(EditHabitActivity.this).habits.remove(currentHabit);
+                            Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
                             finish();
                             dialog.dismiss();
                         }
@@ -157,7 +157,7 @@ public class EditHabitActivity extends AppCompatActivity {
 
     public void rename(String habitName) {
         currentHabit.habitName = habitName;
-        Settings.global.save(this);
+        Settings.getSettings(this).save(this);
         collapsingToolbar.setTitle(currentHabit.habitName);
     }
 

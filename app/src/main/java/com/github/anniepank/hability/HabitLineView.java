@@ -42,7 +42,7 @@ public class HabitLineView extends LinearLayout {
                 Intent intent = new Intent(getContext(), EditHabitActivity.class);
                 // EditText editText = (EditText) findViewById(R.id.edit_message);
                 // String message = editText.getText().toString();
-                int i = Settings.global.habits.indexOf(_habit);
+                int i = Settings.getSettings(HabitLineView.this.getContext()).habits.indexOf(_habit);
                 intent.putExtra("habit_number", i);
                 ((Activity) getContext()).startActivityForResult(intent, 0);
             }
@@ -62,7 +62,7 @@ public class HabitLineView extends LinearLayout {
                     checkBoxes[i2].setChecked(!checkBoxes[i2].isChecked);
                     long day = getToday() - (4 - i2);
                     _habit.toggleDay(day);
-                    Settings.global.save(getContext());
+                    Settings.getSettings(getContext()).save(getContext());
                 }
             });
         }

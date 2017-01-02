@@ -40,8 +40,8 @@ public class ImageOfTheDay {
                     BingImage bingImage = gson.fromJson(str, BingImage.class);
                     String imageUrl = bingImage.images[0].url;
                     imageUrl = "http://bing.com" + imageUrl;
-                    Settings.global.cachedImageOfTheDayUrl = imageUrl;
-                    Settings.global.save(imageView.getContext());
+                    Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl = imageUrl;
+                    Settings.getSettings(imageView.getContext()).save(imageView.getContext());
                     imageView.setColorFilter(Color.argb(128, 0, 0, 0));
 
                     if (isContextDestroyed(imageView.getContext())) return;
@@ -63,11 +63,11 @@ public class ImageOfTheDay {
     }
 
     private static void loadImageIfOffline(ImageView imageView) {
-        if (Settings.global.cachedImageOfTheDayUrl == null) {
+        if (Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl == null) {
             return;
         }
         if (isContextDestroyed(imageView.getContext())) return;
-        Glide.with(imageView.getContext()).load(Settings.global.cachedImageOfTheDayUrl)
+        Glide.with(imageView.getContext()).load(Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl)
                 .placeholder(R.drawable.placeholder)
                 .crossFade()
                 .into(imageView);

@@ -37,7 +37,7 @@ public class NewHabitActivity extends AppCompatActivity {
         habit.days = new LinkedList<>();
         habit.type = key;
         habit.habitName = Habit.namesAndImages.get(key).name;
-        Settings.global.habits.add(habit);
-        Settings.global.save(this);
+        Settings.getSettings(this).habits.add(habit);
+        Settings.getSettings(this).save(this);
     }
 }

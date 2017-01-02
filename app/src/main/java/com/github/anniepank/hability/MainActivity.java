@@ -2,7 +2,6 @@ package com.github.anniepank.hability;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -14,7 +13,7 @@ import com.github.anniepank.hability.data.Settings;
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mainScroll;
-    private FloatingActionButton button;
+    private FloatingActionButton button, buttonBig;
 
 
     @Override
@@ -25,32 +24,34 @@ public class MainActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        CollapsingToolbarLayout collapsingToolbar =
-                (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-
         mainScroll = (LinearLayout) findViewById(R.id.mainScroll);
+
         button = (FloatingActionButton) findViewById(R.id.new_habit);
+        buttonBig = (FloatingActionButton) findViewById(R.id.new_habit_big);
 
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
         ImageOfTheDay.loadImage(imageView);
 
-        Settings settings = Settings.load(this);
-        Settings.global = settings;
+        refreshView();
 
-        refreshView(settings);
-        button.setOnClickListener(new View.OnClickListener() {
+        //function inside the variable
+        View.OnClickListener clickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
                 startActivityForResult(intent, 0);
             }
-        });
+        };
 
-
+        button.setOnClickListener(clickListener);
+        buttonBig.setOnClickListener(clickListener);
     }
 
-    public void refreshView(Settings settings) {
+    public void refreshView() {
         mainScroll.removeAllViews();
+        Settings settings = Settings.getSettings(this);
+        buttonBig.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
+        button.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
         for (int i = 0; i < settings.habits.size(); i++) {
             HabitLineView hlv = new HabitLineView(this, settings.habits.get(i));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        refreshView(Settings.global);
+        refreshView();
     }
 
 
