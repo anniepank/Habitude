@@ -9,6 +9,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class EditHabitActivity extends AppCompatActivity {
     private CollapsingToolbarLayout collapsingToolbar;
     private CircleCheckBox[] checkBoxes;
     public EditText timeReminder;
+    public SwitchCompat reminderSwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class EditHabitActivity extends AppCompatActivity {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
         timeReminder = (EditText) findViewById(R.id.time_reminder);
+        reminderSwitch = (SwitchCompat) findViewById(R.id.reminderSwitch);
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -136,7 +139,7 @@ public class EditHabitActivity extends AppCompatActivity {
                 }
             });
         }
-        timeReminder.setText(currentHabit.reminderHours + ":" + currentHabit.reminderMinutes);
+        timeReminder.setText(currentHabit.reminderHours + ":" + (currentHabit.reminderMinutes < 10 ? "0" : "") + currentHabit.reminderMinutes);
         timeReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,12 +147,19 @@ public class EditHabitActivity extends AppCompatActivity {
                 timePicker = new TimePickerDialog(EditHabitActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeReminder.setText(selectedHour + ":" + selectedMinute);
+                        timeReminder.setText(selectedHour + ":" + (selectedMinute < 10 ? "0" : "") + selectedMinute);
                         currentHabit.reminderHours = selectedHour;
                         currentHabit.reminderMinutes = selectedMinute;
                     }
                 }, 5, 0, true);
                 timePicker.show();
+            }
+        });
+        reminderSwitch.setChecked(currentHabit.remind);
+        reminderSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                currentHabit.remind = reminderSwitch.isChecked();
             }
         });
     }

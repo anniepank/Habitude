@@ -73,6 +73,7 @@
                     android:layout_marginTop="15dp">
 
                     <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/reminderSwitch"
                         android:layout_height="wrap_content"
                         android:layout_width="match_parent"
                         android:text="Turn on reminder"

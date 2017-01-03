@@ -11,9 +11,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.github.anniepank.hability.activities.MainActivity" />
-        <activity android:name="com.github.anniepank.hability.activities.EditHabitActivity" />
-        <activity android:name="com.github.anniepank.hability.activities.NewHabitActivity" />
+        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.EditHabitActivity" />
+        <activity android:name=".activities.NewHabitActivity" />
         <activity
             android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -23,6 +23,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>
