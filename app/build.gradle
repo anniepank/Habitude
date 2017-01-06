@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.2"
     defaultConfig {
         applicationId "com.example.android.habittracker"
-        minSdkVersion 19
+        minSdkVersion 20
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"

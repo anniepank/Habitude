@@ -16,14 +16,24 @@ public class AlarmReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Habit habit = Settings.getSettings(context).habits.get(intent.getIntExtra("habitNumber", 0));
+
+        Intent markAsDoneIntent = new Intent(context, MarkAsDoneReceiver.class);
+        markAsDoneIntent.putExtra("habitNumber", intent.getIntExtra("habitNumber", 0));
+
+        PendingIntent markAsDonePendingIntent = PendingIntent.getBroadcast(context, 102, markAsDoneIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Notification.Action markAsDoneAction = new Notification.Action.Builder(R.drawable.ic_done_black_24dp, "Done!", markAsDonePendingIntent).build();
+
         Notification.Builder builder = new Notification.Builder(context);
+        PendingIntent pendingActivity = PendingIntent.getActivity(context, 101, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setSmallIcon(R.drawable.icon)
                 .setAutoCancel(true)
                 .setContentTitle("Hability")
                 .setContentText("It's time for " + habit.habitName)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setPriority(Notification.PRIORITY_MAX)
-                .setContentIntent(PendingIntent.getActivity(context, 101, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT));
+                .setContentIntent(pendingActivity)
+                .addAction(markAsDoneAction);
         Notification notification = builder.build();
 
         Log.i("Notify", intent.getIntExtra("habitNumber", 0) + "");

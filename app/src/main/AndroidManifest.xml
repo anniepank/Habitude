@@ -27,6 +27,10 @@
         <receiver
             android:name=".AlarmReceiver"
             android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".MarkAsDoneReceiver"
+            android:enabled="true"
             android:exported="true"></receiver>
     </application>
 
