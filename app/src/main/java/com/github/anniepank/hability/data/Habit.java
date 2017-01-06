@@ -16,8 +16,8 @@ public class Habit {
     public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
     public boolean[] remindDays = {false, false, false, false, false, false, false};
     public boolean remind;
-    public int reminderHours;
-    public int reminderMinutes;
+    public long reminderHours;
+    public long reminderMinutes;
 
     static {
         namesAndImages.put("other", new HabitType("Other", R.drawable.other));

@@ -45,10 +45,13 @@ public class ImageOfTheDay {
                     imageView.setColorFilter(Color.argb(128, 0, 0, 0));
 
                     if (isContextDestroyed(imageView.getContext())) return;
-                    Glide.with(imageView.getContext()).load(imageUrl)
-                            .placeholder(R.drawable.placeholder)
-                            .crossFade()
-                            .into(imageView);
+                    try {
+                        Glide.with(imageView.getContext()).load(imageUrl)
+                                .placeholder(R.drawable.placeholder)
+                                .crossFade()
+                                .into(imageView);
+                    } catch (IllegalArgumentException e) {
+                    }
 
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();

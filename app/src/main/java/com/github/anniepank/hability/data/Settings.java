@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.github.anniepank.hability.Reminder;
 import com.google.gson.Gson;
 
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ public class Settings {
         editor.putString(KEY, json);
         Log.i("habits", json);
         editor.commit();
+        Reminder.scheduleNotifications(context);
     }
 
     public static Settings load(Context context) {

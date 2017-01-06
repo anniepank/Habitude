@@ -23,6 +23,7 @@ import android.widget.TimePicker;
 import com.github.anniepank.hability.CircleCheckBox;
 import com.github.anniepank.hability.CustomCalendarView;
 import com.github.anniepank.hability.R;
+import com.github.anniepank.hability.Reminder;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 import com.samsistemas.calendarview.decor.DayDecorator;
@@ -150,6 +151,7 @@ public class EditHabitActivity extends AppCompatActivity {
                         timeReminder.setText(selectedHour + ":" + (selectedMinute < 10 ? "0" : "") + selectedMinute);
                         currentHabit.reminderHours = selectedHour;
                         currentHabit.reminderMinutes = selectedMinute;
+                        Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
                     }
                 }, 5, 0, true);
                 timePicker.show();
@@ -160,6 +162,7 @@ public class EditHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentHabit.remind = reminderSwitch.isChecked();
+                Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
             }
         });
     }
@@ -206,6 +209,8 @@ public class EditHabitActivity extends AppCompatActivity {
         }
         if (item.getItemId() == android.R.id.home) {
             finish();
+            Reminder.scheduleNotifications(this);
+
         }
         return true;
     }
