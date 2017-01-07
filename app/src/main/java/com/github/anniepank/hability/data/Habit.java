@@ -34,4 +34,10 @@ public class Habit {
             days.add(day);
         }
     }
+
+    public void addDay(long day) {
+        if (!days.contains(day)) {
+            days.add(day);
+        }
+    }
 }

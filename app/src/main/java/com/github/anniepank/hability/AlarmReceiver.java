@@ -19,9 +19,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         Intent markAsDoneIntent = new Intent(context, MarkAsDoneReceiver.class);
         markAsDoneIntent.putExtra("habitNumber", intent.getIntExtra("habitNumber", 0));
-
         PendingIntent markAsDonePendingIntent = PendingIntent.getBroadcast(context, 102, markAsDoneIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
         Notification.Action markAsDoneAction = new Notification.Action.Builder(R.drawable.ic_done_black_24dp, "Done!", markAsDonePendingIntent).build();
 
         Notification.Builder builder = new Notification.Builder(context);

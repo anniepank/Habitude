@@ -12,8 +12,6 @@ import com.github.anniepank.hability.activities.EditHabitActivity;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 
-import java.util.Date;
-
 import static com.github.anniepank.hability.R.layout.habit_line_view;
 
 /**
@@ -61,7 +59,7 @@ public class HabitLineView extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     checkBoxes[i2].setChecked(!checkBoxes[i2].isChecked);
-                    long day = getToday() - (4 - i2);
+                    long day = DateUtilities.getToday() - (4 - i2);
                     _habit.toggleDay(day);
                     Settings.getSettings(getContext()).save(getContext());
                 }
@@ -69,15 +67,11 @@ public class HabitLineView extends LinearLayout {
         }
     }
 
-    private long getToday() {
-        return new Date().getTime() / (24 * 60 * 60 * 1000);
-    }
-
     //update habit in Habit Line View
     public void update() {
         textView.setText(_habit.habitName);
         for (int i = 0; i < 5; i++) {
-            checkBoxes[i].setChecked(_habit.days.contains(getToday() - 4 + i));
+            checkBoxes[i].setChecked(_habit.days.contains(DateUtilities.getToday() - 4 + i));
         }
 
     }
