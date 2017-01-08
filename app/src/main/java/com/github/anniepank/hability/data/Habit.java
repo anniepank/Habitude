@@ -1,5 +1,6 @@
 package com.github.anniepank.hability.data;
 
+import com.github.anniepank.hability.DateUtilities;
 import com.github.anniepank.hability.R;
 
 import java.util.LinkedHashMap;
@@ -39,5 +40,17 @@ public class Habit {
         if (!days.contains(day)) {
             days.add(day);
         }
+    }
+
+    public long getStreak() {
+        long streak = 0;
+        if (days.contains(DateUtilities.getToday())) {
+            streak = 1;
+        }
+        long k = 1;
+        while (days.contains(DateUtilities.getToday() - k++)) {
+            streak++;
+        }
+        return streak;
     }
 }

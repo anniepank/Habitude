@@ -7,7 +7,7 @@ import java.util.Date;
  */
 
 public class DateUtilities {
-    static long getToday() {
+    public static long getToday() {
         return new Date().getTime() / (24 * 60 * 60 * 1000);
     }
 }

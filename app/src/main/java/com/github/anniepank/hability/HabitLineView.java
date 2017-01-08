@@ -25,6 +25,7 @@ public class HabitLineView extends LinearLayout {
     private Habit _habit;
     private CircleCheckBox[] checkBoxes;
     private CoordinatorLayout coordinatorLayout;
+    private TextView streakView;
 
     public HabitLineView(Context context, Habit habit, CoordinatorLayout _coordinatorLayout) {
         super(context);
@@ -37,6 +38,7 @@ public class HabitLineView extends LinearLayout {
         LayoutInflater.from(getContext()).inflate(habit_line_view, this, true);
         this.setPadding(0, 0, 0, 10);
         textView = (TextView) findViewById(R.id.name);
+        streakView = (TextView) findViewById(R.id.streak);
         textView.setOnClickListener(new OnClickListener() {
 
             @Override
@@ -69,9 +71,11 @@ public class HabitLineView extends LinearLayout {
                     if (checkBoxes[i2].isChecked) {
                         Snackbar.make(coordinatorLayout, "Great!", Snackbar.LENGTH_SHORT).show();
                     }
+                    updateStreak();
                 }
             });
         }
+
     }
 
     //update habit in Habit Line View
@@ -80,7 +84,11 @@ public class HabitLineView extends LinearLayout {
         for (int i = 0; i < 5; i++) {
             checkBoxes[i].setChecked(_habit.days.contains(DateUtilities.getToday() - 4 + i));
         }
+    }
 
+    private void updateStreak() {
+        String streakString = getContext().getResources().getString(R.string.streak);
+        streakView.setText(streakString.replace("^", _habit.getStreak() + ""));
     }
 }
 
