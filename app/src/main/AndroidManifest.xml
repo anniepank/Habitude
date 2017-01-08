@@ -31,6 +31,10 @@
         <receiver
             android:name=".MarkAsDoneReceiver"
             android:enabled="true"
+            android:exported="true" />
+        <receiver
+            android:name=".LaterReceiver"
+            android:enabled="true"
             android:exported="true"></receiver>
     </application>
 
