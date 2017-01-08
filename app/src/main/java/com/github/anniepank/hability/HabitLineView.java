@@ -3,6 +3,8 @@ package com.github.anniepank.hability;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,13 +24,14 @@ public class HabitLineView extends LinearLayout {
     private TextView textView;
     private Habit _habit;
     private CircleCheckBox[] checkBoxes;
+    private CoordinatorLayout coordinatorLayout;
 
-    public HabitLineView(Context context, Habit habit) {
+    public HabitLineView(Context context, Habit habit, CoordinatorLayout _coordinatorLayout) {
         super(context);
         _habit = habit;
+        coordinatorLayout = _coordinatorLayout;
         loadView();
     }
-
 
     public void loadView() {
         LayoutInflater.from(getContext()).inflate(habit_line_view, this, true);
@@ -62,6 +65,10 @@ public class HabitLineView extends LinearLayout {
                     long day = DateUtilities.getToday() - (4 - i2);
                     _habit.toggleDay(day);
                     Settings.getSettings(getContext()).save(getContext());
+
+                    if (checkBoxes[i2].isChecked) {
+                        Snackbar.make(coordinatorLayout, "Great!", Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             });
         }

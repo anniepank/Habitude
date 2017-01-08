@@ -2,6 +2,7 @@ package com.github.anniepank.hability.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         buttonBig.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
         button.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
         for (int i = 0; i < settings.habits.size(); i++) {
-            HabitLineView hlv = new HabitLineView(this, settings.habits.get(i));
+            HabitLineView hlv = new HabitLineView(this, settings.habits.get(i), (CoordinatorLayout) findViewById(R.id.coordinator));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             hlv.setLayoutParams(params);
             mainScroll.addView(hlv);
