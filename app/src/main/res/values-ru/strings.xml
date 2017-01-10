@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Hability</string>
+    <plurals name="streak">
+        <item quantity="one">
+            Один день подряд
+        </item>
+        <item quantity="other">
+            ^ дней подряд
+        </item>
+        <item quantity="few">
+            ^ дня подряд
+        </item>
+        <item quantity="many">
+            ^ дней подряд
+        </item>
+    </plurals>
+    <string name="zero_streak">
+        Только начали
+    </string>
+</resources>

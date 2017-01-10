@@ -81,14 +81,19 @@ public class HabitLineView extends LinearLayout {
     //update habit in Habit Line View
     public void update() {
         textView.setText(_habit.habitName);
+        updateStreak();
         for (int i = 0; i < 5; i++) {
             checkBoxes[i].setChecked(_habit.days.contains(DateUtilities.getToday() - 4 + i));
         }
     }
 
     private void updateStreak() {
-        String streakString = getContext().getResources().getString(R.string.streak);
-        streakView.setText(streakString.replace("^", _habit.getStreak() + ""));
+        String streakString = getContext().getResources().getQuantityString(R.plurals.streak, _habit.getStreak());
+        if (_habit.getStreak() == 0) {
+            streakView.setText(R.string.zero_streak);
+        } else {
+            streakView.setText(streakString.replace("^", _habit.getStreak() + ""));
+        }
     }
 }
 
