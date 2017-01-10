@@ -1,4 +1,4 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.receivers;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.activities.MainActivity;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;

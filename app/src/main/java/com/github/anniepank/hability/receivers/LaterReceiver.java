@@ -1,4 +1,4 @@
-package com.github.anniepank.hability;
+package com.github.anniepank.hability.receivers;
 
 import android.app.AlarmManager;
 import android.app.NotificationManager;

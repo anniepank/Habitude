@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
+import com.github.anniepank.hability.receivers.AlarmReceiver;
 
 import java.util.Calendar;
 
