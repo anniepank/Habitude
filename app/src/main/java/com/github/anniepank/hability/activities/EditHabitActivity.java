@@ -3,6 +3,7 @@ package com.github.anniepank.hability.activities;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -74,8 +75,15 @@ public class EditHabitActivity extends AppCompatActivity {
                 Date date = dayView.getDate();
                 long date_long = date.getTime() / (24 * 60 * 60 * 1000);
                 dayView.setBackgroundColor(0xffffffff);
-                if (currentHabit.days.contains(date_long))
-                    dayView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
+                dayView.setTextColor(0xff000000);
+                if (currentHabit.days.contains(date_long)) {
+                    Drawable drawable = getResources().getDrawable(R.drawable.calendar_highlight);
+                    drawable.setBounds(0, 0, dayView.getMeasuredHeight(), dayView.getMeasuredHeight());
+                    dayView.setBackground(drawable);
+                    dayView.setTextColor(0xffffffff);
+                }
+
+
             }
         };
         List<DayDecorator> listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio = new LinkedList<>();

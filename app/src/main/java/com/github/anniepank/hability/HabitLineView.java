@@ -39,7 +39,7 @@ public class HabitLineView extends LinearLayout {
         this.setPadding(0, 0, 0, 10);
         textView = (TextView) findViewById(R.id.name);
         streakView = (TextView) findViewById(R.id.streak);
-        textView.setOnClickListener(new OnClickListener() {
+        findViewById(R.id.name_container).setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View v) {

@@ -39,32 +39,3 @@ public class CustomCalendarView extends CalendarView {
 
 
 }
-
-/*
-interface Voice {
-    void say(String str);
-}
-
-class Animal {
-    Voice voice;
-    void greet() {
-        this.voice.say("Hello");
-    }
-}
-
-
-class DogVoice implements Voice {
-    void say(String str) { console..log("Woof" + str); }
-}
-
-Animal a = new Animal();
-a.voice = new Voice() { // Animal$Voice1
-    void say(String str)
-    {
-        console.log("Meow Meow" + str + "meow");
-    }
-}
-
-a.greet()
-a.voice = new DogVoice()
-a.greet()*/
