@@ -11,4 +11,15 @@
     <string name="zero_streak">
         No streak
     </string>
+
+    <string-array name="short_quotes">
+        <item>Great!</item>
+        <item>Wonderful!</item>
+        <item>Perfect!</item>
+        <item>You are doing great!</item>
+        <item>Keep it up!</item>
+        <item>Keep it going!</item>
+        <item>Way to go!</item>
+        <item>Nice!</item>
+    </string-array>
 </resources>

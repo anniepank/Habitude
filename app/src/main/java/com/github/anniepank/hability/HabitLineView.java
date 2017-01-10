@@ -69,7 +69,7 @@ public class HabitLineView extends LinearLayout {
                     Settings.getSettings(getContext()).save(getContext());
 
                     if (checkBoxes[i2].isChecked) {
-                        Snackbar.make(coordinatorLayout, "Great!", Snackbar.LENGTH_SHORT).show();
+                        Snackbar.make(coordinatorLayout, Motivation.getShortMotivation(getContext()), Snackbar.LENGTH_SHORT).show();
                     }
                     updateStreak();
                 }

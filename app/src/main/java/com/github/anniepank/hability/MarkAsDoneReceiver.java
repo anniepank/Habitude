@@ -12,9 +12,6 @@ import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 
 public class MarkAsDoneReceiver extends BroadcastReceiver {
-    public MarkAsDoneReceiver() {
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         Habit habit = Settings.getSettings(context).habits.get(intent.getIntExtra("habitNumber", 0));
@@ -26,8 +23,8 @@ public class MarkAsDoneReceiver extends BroadcastReceiver {
         PendingIntent pendingActivity = PendingIntent.getActivity(context, 101, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setSmallIcon(R.drawable.icon)
                 .setAutoCancel(true)
-                .setContentTitle("Hability")
-                .setContentText("Great! ")
+                .setContentTitle("Habitlity")
+                .setContentText(Motivation.getShortMotivation(context))
                 .setContentIntent(pendingActivity);
 
         Notification notification = builder.build();
