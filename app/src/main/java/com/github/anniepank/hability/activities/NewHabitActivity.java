@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.anniepank.hability.R;
@@ -47,6 +48,9 @@ public class NewHabitActivity extends AppCompatActivity {
                 }
             });
 
+        }
+        if (getIntent().getBooleanExtra("firstStart", false)) {
+            Toast.makeText(this, R.string.greeting, Toast.LENGTH_LONG).show();
         }
     }
 

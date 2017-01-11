@@ -51,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(clickListener);
         buttonBig.setOnClickListener(clickListener);
 
+        if (Settings.getSettings(this).habits.size() == 0) {
+            Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
+            intent.putExtra("firstStart", true);
+            startActivityForResult(intent, 0);
+        }
+
         Reminder.scheduleNotifications(this);
     }
 

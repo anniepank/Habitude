@@ -11,6 +11,7 @@
     <string name="zero_streak">
         No streak
     </string>
+    <string name="greeting">Let\'s start by adding a habit</string>
 
     <string-array name="short_quotes">
         <item>Great!</item>
