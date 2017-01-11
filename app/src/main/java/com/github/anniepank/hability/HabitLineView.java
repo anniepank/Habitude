@@ -21,80 +21,73 @@ import static com.github.anniepank.hability.R.layout.habit_line_view;
  */
 
 public class HabitLineView extends LinearLayout {
-    private TextView textView;
-    private Habit _habit;
-    private CircleCheckBox[] checkBoxes;
+    private TextView nameView;
+    private Habit currentHabit;
+    private CircleCheckBox[] checkboxes;
     private CoordinatorLayout coordinatorLayout;
     private TextView streakView;
 
-    public HabitLineView(Context context, Habit habit, CoordinatorLayout _coordinatorLayout) {
+    public HabitLineView(Context context, Habit habit, CoordinatorLayout coordinatorLayout) {
         super(context);
-        _habit = habit;
-        coordinatorLayout = _coordinatorLayout;
+        currentHabit = habit;
+        this.coordinatorLayout = coordinatorLayout;
         loadView();
     }
 
     public void loadView() {
         LayoutInflater.from(getContext()).inflate(habit_line_view, this, true);
         this.setPadding(0, 0, 0, 10);
-        textView = (TextView) findViewById(R.id.name);
+        nameView = (TextView) findViewById(R.id.name);
         streakView = (TextView) findViewById(R.id.streak);
         findViewById(R.id.name_container).setOnClickListener(new OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), EditHabitActivity.class);
-                // EditText editText = (EditText) findViewById(R.id.edit_message);
-                // String message = editText.getText().toString();
-                int i = Settings.getSettings(HabitLineView.this.getContext()).habits.indexOf(_habit);
-                intent.putExtra("habit_number", i);
+                int habitNumber = Settings.get(HabitLineView.this.getContext()).habits.indexOf(currentHabit);
+                intent.putExtra(EditHabitActivity.HABIT_NUMBER_EXTRA, habitNumber);
                 ((Activity) getContext()).startActivityForResult(intent, 0);
             }
         });
-        checkBoxes = new CircleCheckBox[5];
-        checkBoxes[0] = (CircleCheckBox) findViewById(R.id.checkbox1);
-        checkBoxes[1] = (CircleCheckBox) findViewById(R.id.checkbox2);
-        checkBoxes[2] = (CircleCheckBox) findViewById(R.id.checkbox3);
-        checkBoxes[3] = (CircleCheckBox) findViewById(R.id.checkbox4);
-        checkBoxes[4] = (CircleCheckBox) findViewById(R.id.checkbox5);
+        checkboxes = new CircleCheckBox[5];
+        checkboxes[0] = (CircleCheckBox) findViewById(R.id.checkbox1);
+        checkboxes[1] = (CircleCheckBox) findViewById(R.id.checkbox2);
+        checkboxes[2] = (CircleCheckBox) findViewById(R.id.checkbox3);
+        checkboxes[3] = (CircleCheckBox) findViewById(R.id.checkbox4);
+        checkboxes[4] = (CircleCheckBox) findViewById(R.id.checkbox5);
 
         for (int i = 0; i < 5; i++) {
-            final int i2 = i;
-            checkBoxes[i].setOnClickListener(new OnClickListener() {
+            final int finalI = i;
+            checkboxes[i].setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    checkBoxes[i2].setChecked(!checkBoxes[i2].isChecked);
-                    long day = DateUtilities.getToday() - (4 - i2);
-                    _habit.toggleDay(day);
-                    Settings.getSettings(getContext()).save(getContext());
+                    checkboxes[finalI].setChecked(!checkboxes[finalI].isChecked);
+                    long day = DateUtilities.getToday() - (4 - finalI);
+                    currentHabit.toggleDay(day);
+                    Settings.get(getContext()).save(getContext());
 
-                    if (checkBoxes[i2].isChecked) {
+                    if (checkboxes[finalI].isChecked) {
                         Snackbar.make(coordinatorLayout, Motivation.getShortMotivation(getContext()), Snackbar.LENGTH_SHORT).show();
                     }
                     updateStreak();
                 }
             });
         }
-
     }
 
-    //update habit in Habit Line View
     public void update() {
-        textView.setText(_habit.habitName);
+        nameView.setText(currentHabit.habitName);
         updateStreak();
         for (int i = 0; i < 5; i++) {
-            checkBoxes[i].setChecked(_habit.days.contains(DateUtilities.getToday() - 4 + i));
+            checkboxes[i].setChecked(currentHabit.days.contains(DateUtilities.getToday() - 4 + i));
         }
     }
 
     private void updateStreak() {
-        String streakString = getContext().getResources().getQuantityString(R.plurals.streak, _habit.getStreak());
-        if (_habit.getStreak() == 0) {
+        String streakString = getContext().getResources().getQuantityString(R.plurals.streak, currentHabit.getStreak());
+        if (currentHabit.getStreak() == 0) {
             streakView.setText(R.string.zero_streak);
         } else {
-            streakView.setText(streakString.replace("^", _habit.getStreak() + ""));
+            streakView.setText(streakString.replace("^", currentHabit.getStreak() + ""));
         }
     }
 }
-
-

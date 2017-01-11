@@ -16,8 +16,8 @@ import com.github.anniepank.hability.data.Settings;
 import java.util.LinkedList;
 
 public class NewHabitActivity extends AppCompatActivity {
-
-    LinearLayout container;
+    public static final String FIRST_START_EXTRA = "firstStart";
+    private LinearLayout container;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +47,9 @@ public class NewHabitActivity extends AppCompatActivity {
                             .into(image);
                 }
             });
-
         }
-        if (getIntent().getBooleanExtra("firstStart", false)) {
+
+        if (getIntent().getBooleanExtra(FIRST_START_EXTRA, false)) {
             Toast.makeText(this, R.string.greeting, Toast.LENGTH_LONG).show();
         }
     }
@@ -59,7 +59,7 @@ public class NewHabitActivity extends AppCompatActivity {
         habit.days = new LinkedList<>();
         habit.type = key;
         habit.habitName = Habit.namesAndImages.get(key).name;
-        Settings.getSettings(this).habits.add(habit);
-        Settings.getSettings(this).save(this);
+        Settings.get(this).habits.add(habit);
+        Settings.get(this).save(this);
     }
 }

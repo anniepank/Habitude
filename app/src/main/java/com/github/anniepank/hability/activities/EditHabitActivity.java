@@ -2,7 +2,6 @@ package com.github.anniepank.hability.activities;
 
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,13 +37,14 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class EditHabitActivity extends AppCompatActivity {
-    Habit currentHabit;
-    ImageView imageView;
-    CustomCalendarView calendarView;
-    private FloatingActionButton button;
+    public static final String HABIT_NUMBER_EXTRA = "habitNumber";
+    private Habit currentHabit;
+    private ImageView imageView;
+    private CustomCalendarView calendarView;
+    private FloatingActionButton editButton;
     private CollapsingToolbarLayout collapsingToolbar;
-    private CircleCheckBox[] checkBoxes;
-    public EditText timeReminder;
+    private CircleCheckBox[] checkboxes;
+    public EditText reminderTime;
     public SwitchCompat reminderSwitch;
 
     @Override
@@ -52,47 +52,26 @@ public class EditHabitActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_habit);
 
-        button = (FloatingActionButton) findViewById(R.id.editButton);
+        editButton = (FloatingActionButton) findViewById(R.id.editButton);
         calendarView = (CustomCalendarView) findViewById(R.id.calendar_view);
-        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
         imageView = (ImageView) findViewById(R.id.backdrop);
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing);
-        timeReminder = (EditText) findViewById(R.id.time_reminder);
+        reminderTime = (EditText) findViewById(R.id.time_reminder);
         reminderSwitch = (SwitchCompat) findViewById(R.id.reminderSwitch);
 
-        setSupportActionBar(toolbar);
+
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        Intent intent = getIntent();
-        int habit_number = intent.getIntExtra("habit_number", -1);
-        currentHabit = Settings.getSettings(this).habits.get(habit_number);
+        int habitNumber = getIntent().getIntExtra(HABIT_NUMBER_EXTRA, -1);
+        currentHabit = Settings.get(this).habits.get(habitNumber);
         imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
         collapsingToolbar.setTitle(currentHabit.habitName);
 
-        DayDecorator dayDecorator = new DayDecorator() {
-            @Override
-            public void decorate(@NonNull DayView dayView) {
-                Date date = dayView.getDate();
-                long date_long = date.getTime() / (24 * 60 * 60 * 1000);
-                dayView.setBackgroundColor(0xffffffff);
-                dayView.setTextColor(0xff000000);
-                if (currentHabit.days.contains(date_long)) {
-                    Drawable drawable = getResources().getDrawable(R.drawable.calendar_highlight);
-                    drawable.setBounds(0, 0, dayView.getMeasuredHeight(), dayView.getMeasuredHeight());
-                    dayView.setBackground(drawable);
-                    dayView.setTextColor(0xffffffff);
-                }
+        setupCalendar();
 
-
-            }
-        };
-        List<DayDecorator> listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio = new LinkedList<>();
-        listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio.add(dayDecorator);
-        calendarView.setDecoratorsList(listOfDayDecoratorsForThecalendarViewOfmyProjectInAndroidStudio);
-
-        button.setOnClickListener(new View.OnClickListener() {
+        editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final EditText nameView = new EditText(EditHabitActivity.this);
@@ -105,9 +84,9 @@ public class EditHabitActivity extends AppCompatActivity {
                 getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 
                 new AlertDialog.Builder(EditHabitActivity.this)
-                        .setTitle("Edit name")
+                        .setTitle(R.string.edit_name_title)
                         .setView(frameLayout)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 String habitName = nameView.getText().toString();
@@ -115,7 +94,7 @@ public class EditHabitActivity extends AppCompatActivity {
                                 dialog.cancel();
                             }
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
@@ -136,39 +115,39 @@ public class EditHabitActivity extends AppCompatActivity {
         });
         calendarView.refreshCalendar(Calendar.getInstance());
 
-        checkBoxes = new CircleCheckBox[7];
-        checkBoxes[0] = (CircleCheckBox) findViewById(R.id.checkbox1);
-        checkBoxes[1] = (CircleCheckBox) findViewById(R.id.checkbox2);
-        checkBoxes[2] = (CircleCheckBox) findViewById(R.id.checkbox3);
-        checkBoxes[3] = (CircleCheckBox) findViewById(R.id.checkbox4);
-        checkBoxes[4] = (CircleCheckBox) findViewById(R.id.checkbox5);
-        checkBoxes[5] = (CircleCheckBox) findViewById(R.id.checkbox6);
-        checkBoxes[6] = (CircleCheckBox) findViewById(R.id.checkbox7);
+        checkboxes = new CircleCheckBox[7];
+        checkboxes[0] = (CircleCheckBox) findViewById(R.id.checkbox1);
+        checkboxes[1] = (CircleCheckBox) findViewById(R.id.checkbox2);
+        checkboxes[2] = (CircleCheckBox) findViewById(R.id.checkbox3);
+        checkboxes[3] = (CircleCheckBox) findViewById(R.id.checkbox4);
+        checkboxes[4] = (CircleCheckBox) findViewById(R.id.checkbox5);
+        checkboxes[5] = (CircleCheckBox) findViewById(R.id.checkbox6);
+        checkboxes[6] = (CircleCheckBox) findViewById(R.id.checkbox7);
 
         for (int i = 0; i < 7; i++) {
-            final int i2 = i;
-            checkBoxes[i2].setChecked(currentHabit.remindDays[i2]);
-            checkBoxes[i].setOnClickListener(new View.OnClickListener() {
+            final int finalI = i;
+            checkboxes[finalI].setChecked(currentHabit.remindDays[finalI]);
+            checkboxes[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    checkBoxes[i2].setChecked(!checkBoxes[i2].isChecked);
-                    currentHabit.remindDays[i2] = checkBoxes[i2].isChecked;
-                    Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
+                    checkboxes[finalI].setChecked(!checkboxes[finalI].isChecked);
+                    currentHabit.remindDays[finalI] = checkboxes[finalI].isChecked;
+                    Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
                 }
             });
         }
-        timeReminder.setText(currentHabit.reminderHours + ":" + (currentHabit.reminderMinutes < 10 ? "0" : "") + currentHabit.reminderMinutes);
-        timeReminder.setOnClickListener(new View.OnClickListener() {
+        reminderTime.setText(currentHabit.reminderHours + ":" + (currentHabit.reminderMinutes < 10 ? "0" : "") + currentHabit.reminderMinutes);
+        reminderTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog timePicker;
                 timePicker = new TimePickerDialog(EditHabitActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        timeReminder.setText(selectedHour + ":" + (selectedMinute < 10 ? "0" : "") + selectedMinute);
+                        reminderTime.setText(selectedHour + ":" + (selectedMinute < 10 ? "0" : "") + selectedMinute);
                         currentHabit.reminderHours = selectedHour;
                         currentHabit.reminderMinutes = selectedMinute;
-                        Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
+                        Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
                     }
                 }, 5, 0, true);
                 timePicker.show();
@@ -179,9 +158,32 @@ public class EditHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 currentHabit.remind = reminderSwitch.isChecked();
-                Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
+                Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
             }
         });
+    }
+
+    private void setupCalendar() {
+        DayDecorator dayDecorator = new DayDecorator() {
+            @Override
+            public void decorate(@NonNull DayView dayView) {
+                Date date = dayView.getDate();
+                long dateLong = date.getTime() / (24 * 60 * 60 * 1000);
+                dayView.setBackgroundColor(0xffffffff);
+                dayView.setTextColor(0xff000000);
+                if (currentHabit.days.contains(dateLong)) {
+                    Drawable drawable = getResources().getDrawable(R.drawable.calendar_highlight);
+                    drawable.setBounds(0, 0, dayView.getMeasuredHeight(), dayView.getMeasuredHeight());
+                    dayView.setBackground(drawable);
+                    dayView.setTextColor(0xffffffff);
+                }
+            }
+        };
+        List<DayDecorator> decorators = new LinkedList<>();
+        decorators.add(dayDecorator);
+        calendarView.setDecoratorsList(decorators);
+
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
     }
 
     @Override
@@ -193,51 +195,36 @@ public class EditHabitActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.delete) {
-            /*
-            a = new B().c.d.e
-            a = new B()
-            .c
-            .d
-            .e
-
-            B().c
-
-            (new B()).c.d.e
-             */
             new AlertDialog.Builder(this)
-                    .setTitle("Delete")
-                    .setMessage("Do you want to delete your habit?")
-
-                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.delete_title)
+                    .setMessage(R.string.delete_confirmation)
+                    .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            Settings.getSettings(EditHabitActivity.this).habits.remove(currentHabit);
-                            Settings.getSettings(EditHabitActivity.this).save(EditHabitActivity.this);
+                            Settings.get(EditHabitActivity.this).habits.remove(currentHabit);
+                            Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
                             finish();
                             dialog.dismiss();
                         }
                     })
-                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    .setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.dismiss();
                         }
                     })
                     .create().show();
-
         }
         if (item.getItemId() == android.R.id.home) {
             finish();
             Reminder.scheduleNotifications(this);
-
         }
         return true;
     }
 
     public void rename(String habitName) {
         currentHabit.habitName = habitName;
-        Settings.getSettings(this).save(this);
+        Settings.get(this).save(this);
         collapsingToolbar.setTitle(currentHabit.habitName);
     }
-
 }
 
 

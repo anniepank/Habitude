@@ -15,14 +15,13 @@ import java.util.LinkedList;
 public class Settings {
     public LinkedList<Habit> habits;
     public String cachedImageOfTheDayUrl;
-    public static final String NAME = "Habits";
-    public static final String KEY = "Settings";
 
+    private static final String NAME = "Habits";
+    private static final String KEY = "Settings";
     private static boolean gotSettings = false;
     private static Settings global;
 
-
-    public static Settings getSettings(Context context) {
+    public static Settings get(Context context) {
         if (!gotSettings) {
             global = load(context);
             gotSettings = true;
@@ -37,12 +36,11 @@ public class Settings {
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY, json);
         Log.i("habits", json);
-        editor.commit();
+        editor.apply();
         Reminder.scheduleNotifications(context);
     }
 
-    public static Settings load(Context context) {
-        //Android settings
+    private static Settings load(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(NAME, 0);
         String json = prefs.getString(KEY, null);
         if (json == null) {
@@ -50,8 +48,6 @@ public class Settings {
             settings.habits = new LinkedList<>();
             return settings;
         }
-        Settings settings = new Gson().fromJson(json, Settings.class);
-        return settings;
+        return new Gson().fromJson(json, Settings.class);
     }
-
 }

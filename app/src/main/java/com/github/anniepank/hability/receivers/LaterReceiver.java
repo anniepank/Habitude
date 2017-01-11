@@ -8,18 +8,19 @@ import android.content.Context;
 import android.content.Intent;
 
 public class LaterReceiver extends BroadcastReceiver {
-    public LaterReceiver() {
-    }
+
+    public static final String HABIT_NUMBER_EXTRA = "habitNumber";
+    public static final int LATER_TIMEOUT = 15 * 60 * 1000;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(intent.getIntExtra("habitNumber", 0));
+        notificationManager.cancel(intent.getIntExtra(HABIT_NUMBER_EXTRA, -1));
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent laterIntent = new Intent(context, AlarmReceiver.class);
         PendingIntent laterPendingIntent = PendingIntent.getBroadcast(context, 104, laterIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, 5000, laterPendingIntent);
+        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, LATER_TIMEOUT, laterPendingIntent);
     }
 }

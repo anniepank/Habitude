@@ -24,24 +24,27 @@ import cz.msebera.android.httpclient.Header;
 
 public class ImageOfTheDay {
 
+    public static final String BING_IMAGE_OF_THE_DAY_URL = "http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US";
+    public static final String BING_PREFIX = "http://bing.com";
+
     public static void loadImage(final ImageView imageView) {
         if (!isConnected(imageView.getContext())) {
             loadImageIfOffline(imageView);
             return;
         }
         AsyncHttpClient client = new AsyncHttpClient();
-        client.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&mkt=en-US", new AsyncHttpResponseHandler() {
+        client.get(BING_IMAGE_OF_THE_DAY_URL, new AsyncHttpResponseHandler() {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] response) {
                 try {
                     Gson gson = new Gson();
-                    String str = new String(response, "UTF-8");
-                    BingImage bingImage = gson.fromJson(str, BingImage.class);
+                    String responseString = new String(response, "UTF-8");
+                    BingImage bingImage = gson.fromJson(responseString, BingImage.class);
                     String imageUrl = bingImage.images[0].url;
-                    imageUrl = "http://bing.com" + imageUrl;
-                    Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl = imageUrl;
-                    Settings.getSettings(imageView.getContext()).save(imageView.getContext());
+                    imageUrl = BING_PREFIX + imageUrl;
+                    Settings.get(imageView.getContext()).cachedImageOfTheDayUrl = imageUrl;
+                    Settings.get(imageView.getContext()).save(imageView.getContext());
                     imageView.setColorFilter(Color.argb(128, 0, 0, 0));
 
                     if (isContextDestroyed(imageView.getContext())) return;
@@ -51,6 +54,7 @@ public class ImageOfTheDay {
                                 .crossFade()
                                 .into(imageView);
                     } catch (IllegalArgumentException e) {
+                        e.printStackTrace();
                     }
 
                 } catch (UnsupportedEncodingException e) {
@@ -66,17 +70,18 @@ public class ImageOfTheDay {
     }
 
     private static void loadImageIfOffline(ImageView imageView) {
-        if (Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl == null) {
+        if (Settings.get(imageView.getContext()).cachedImageOfTheDayUrl == null) {
             return;
         }
         if (isContextDestroyed(imageView.getContext())) return;
-        Glide.with(imageView.getContext()).load(Settings.getSettings(imageView.getContext()).cachedImageOfTheDayUrl)
+        Glide.with(imageView.getContext())
+                .load(Settings.get(imageView.getContext()).cachedImageOfTheDayUrl)
                 .placeholder(R.drawable.placeholder)
                 .crossFade()
                 .into(imageView);
     }
 
-    public static boolean isConnected(Context context) {
+    private static boolean isConnected(Context context) {
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
         NetworkInfo mobileInfo = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
@@ -85,14 +90,14 @@ public class ImageOfTheDay {
     }
 
     private class BingImage {
-        public BingImageImage[] images;
+        BingImageImage[] images;
     }
 
     private class BingImageImage {
-        public String url;
+        String url;
     }
 
-    public static boolean isContextDestroyed(Context context) {
+    private static boolean isContextDestroyed(Context context) {
         if (context instanceof Activity) {
             return !(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && ((Activity) context).isDestroyed());
         }

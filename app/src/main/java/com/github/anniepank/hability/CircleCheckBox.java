@@ -9,8 +9,6 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.View;
 
-import java.util.Timer;
-
 import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 
 /**
@@ -70,8 +68,6 @@ public class CircleCheckBox extends View {
     public boolean isChecked = false;
 
     private boolean draw_tick = false;
-
-    Timer timer = new Timer();
 
     public CircleCheckBox(Context context) {
         super(context);

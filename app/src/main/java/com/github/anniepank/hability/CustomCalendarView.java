@@ -13,12 +13,14 @@ import java.lang.reflect.Field;
  */
 
 public class CustomCalendarView extends CalendarView {
+
+    public static final String ON_DAY_OF_MONTH_CLICK_LISTENER = "onDayOfMonthClickListener";
+
     public void setOnDayOfMonthClickListener(View.OnClickListener onDayOfMonthClickListener) {
         try {
-            Field field = CalendarView.class.getDeclaredField("onDayOfMonthClickListener");
+            Field field = CalendarView.class.getDeclaredField(ON_DAY_OF_MONTH_CLICK_LISTENER);
             field.setAccessible(true);
             field.set(this, onDayOfMonthClickListener);
-
         } catch (Exception e) {
         }
     }
@@ -29,13 +31,6 @@ public class CustomCalendarView extends CalendarView {
 
     public CustomCalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        try {
-            Field field = CalendarView.class.getDeclaredField("onDayOfMonthClickListener");
-            field.setAccessible(true);
-            field.set(this, null);
-        } catch (Exception e) {
-        }
+        setOnDayOfMonthClickListener(null);
     }
-
-
 }

@@ -15,24 +15,27 @@ import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 
 public class MarkAsDoneReceiver extends BroadcastReceiver {
+
+    public static final String HABIT_NUMBER_EXTRA = "habitNumber";
+
     @Override
     public void onReceive(Context context, Intent intent) {
-        Habit habit = Settings.getSettings(context).habits.get(intent.getIntExtra("habitNumber", 0));
+        Habit habit = Settings.get(context).habits.get(intent.getIntExtra(HABIT_NUMBER_EXTRA, 0));
         long day = DateUtilities.getToday();
         habit.addDay(day);
-        Settings.getSettings(context).save(context);
+        Settings.get(context).save(context);
 
         Notification.Builder builder = new Notification.Builder(context);
         PendingIntent pendingActivity = PendingIntent.getActivity(context, 101, new Intent(context, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setSmallIcon(R.drawable.icon)
                 .setAutoCancel(true)
-                .setContentTitle("Habitlity")
+                .setContentTitle(context.getString(R.string.app_name))
                 .setContentText(Motivation.getShortMotivation(context))
                 .setContentIntent(pendingActivity);
 
         Notification notification = builder.build();
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(intent.getIntExtra("habitNumber", 0), notification);
+        notificationManager.notify(intent.getIntExtra(HABIT_NUMBER_EXTRA, -1), notification);
 
     }
 }

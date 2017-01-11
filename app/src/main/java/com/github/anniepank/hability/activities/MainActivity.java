@@ -18,7 +18,7 @@ import com.github.anniepank.hability.data.Settings;
 
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mainScroll;
-    private FloatingActionButton button, buttonBig;
+    private FloatingActionButton newHabitButton, bigNewButton;
 
 
     @Override
@@ -26,21 +26,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         mainScroll = (LinearLayout) findViewById(R.id.mainScroll);
-
-        button = (FloatingActionButton) findViewById(R.id.new_habit);
-        buttonBig = (FloatingActionButton) findViewById(R.id.new_habit_big);
-
+        newHabitButton = (FloatingActionButton) findViewById(R.id.new_habit);
+        bigNewButton = (FloatingActionButton) findViewById(R.id.new_habit_big);
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+
         ImageOfTheDay.loadImage(imageView);
 
         refreshView();
 
         //function inside the variable
-        View.OnClickListener clickListener = new View.OnClickListener() {
+        View.OnClickListener newHabitButtonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
@@ -48,23 +45,22 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        button.setOnClickListener(clickListener);
-        buttonBig.setOnClickListener(clickListener);
+        newHabitButton.setOnClickListener(newHabitButtonClickListener);
+        bigNewButton.setOnClickListener(newHabitButtonClickListener);
 
-        if (Settings.getSettings(this).habits.size() == 0) {
+        if (Settings.get(this).habits.size() == 0) {
             Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
-            intent.putExtra("firstStart", true);
+            intent.putExtra(NewHabitActivity.FIRST_START_EXTRA, true);
             startActivityForResult(intent, 0);
         }
-
         Reminder.scheduleNotifications(this);
     }
 
     public void refreshView() {
         mainScroll.removeAllViews();
-        Settings settings = Settings.getSettings(this);
-        buttonBig.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
-        button.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
+        Settings settings = Settings.get(this);
+        bigNewButton.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
+        newHabitButton.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
         for (int i = 0; i < settings.habits.size(); i++) {
             HabitLineView hlv = new HabitLineView(this, settings.habits.get(i), (CoordinatorLayout) findViewById(R.id.coordinator));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
@@ -78,6 +74,4 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         refreshView();
     }
-
-
 }

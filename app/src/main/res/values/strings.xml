@@ -23,4 +23,12 @@
         <item>Way to go!</item>
         <item>Nice!</item>
     </string-array>
+
+    <string name="delete_confirmation">Do you want to delete your habit?</string>
+    <string name="delete_title">Delete</string>
+    <string name="delete">Delete</string>
+    <string name="edit_name_title">Edit name</string>
+    <string name="done_title">Done!</string>
+    <string name="fifteen_minutes">15 minutes</string>
+    <string name="time_for">"It's time for "</string>
 </resources>
