@@ -16,7 +16,7 @@
 
             <ImageView
                 style="@style/habit_type_item_img"
-                android:src="@drawable/other" />
+                tools:src="@drawable/other" />
 
             <TextView
                 style="@style/habit_type_item_txt"
@@ -27,7 +27,7 @@
 
             <ImageView
                 style="@style/habit_type_item_img"
-                android:src="@drawable/sport" />
+                tools:src="@drawable/sport" />
 
             <TextView
                 style="@style/habit_type_item_txt_right"
@@ -38,7 +38,7 @@
 
             <ImageView
                 style="@style/habit_type_item_img"
-                android:src="@drawable/nutrition" />
+                tools:src="@drawable/nutrition" />
 
             <TextView
                 style="@style/habit_type_item_txt"
@@ -49,7 +49,7 @@
 
             <ImageView
                 style="@style/habit_type_item_img"
-                android:src="@drawable/jogging" />
+                tools:src="@drawable/jogging" />
 
             <TextView
                 style="@style/habit_type_item_txt_right"
@@ -60,11 +60,34 @@
 
             <ImageView
                 style="@style/habit_type_item_img"
-                android:src="@drawable/meditation" />
+                tools:src="@drawable/meditation" />
 
             <TextView
                 style="@style/habit_type_item_txt"
                 android:text="Meditation" />
         </RelativeLayout>
+
+        <RelativeLayout style="@style/habit_type_item">
+
+            <ImageView
+                style="@style/habit_type_item_img"
+                tools:src="@drawable/workout" />
+
+            <TextView
+                style="@style/habit_type_item_txt_right"
+                android:text="Workout" />
+        </RelativeLayout>
+
+        <RelativeLayout style="@style/habit_type_item">
+
+            <ImageView
+                style="@style/habit_type_item_img"
+                tools:src="@drawable/reading" />
+
+            <TextView
+                style="@style/habit_type_item_txt"
+                android:text="Reading" />
+        </RelativeLayout>
+
     </LinearLayout>
 </ScrollView>

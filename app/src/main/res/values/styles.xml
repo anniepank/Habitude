@@ -86,6 +86,9 @@
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:layout_marginBottom">10dp</item>
         <item name="android:layout_marginRight">20dp</item>
+        <item name="android:shadowColor">#aa000000</item>
+        <item name="android:shadowRadius">8</item>
+
     </style>
 
     <style name="habit_type_item_txt_right" parent="habit_type_item_txt">

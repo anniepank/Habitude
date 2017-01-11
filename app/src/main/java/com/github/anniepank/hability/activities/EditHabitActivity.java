@@ -15,8 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TimePicker;
@@ -94,9 +96,17 @@ public class EditHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText nameView = new EditText(EditHabitActivity.this);
+                nameView.setText(currentHabit.habitName);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                FrameLayout frameLayout = new FrameLayout(EditHabitActivity.this);
+                frameLayout.addView(nameView);
+                params.setMargins(60, 0, 60, 0);
+                nameView.setLayoutParams(params);
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
                 new AlertDialog.Builder(EditHabitActivity.this)
                         .setTitle("Edit name")
-                        .setView(nameView)
+                        .setView(frameLayout)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +122,6 @@ public class EditHabitActivity extends AppCompatActivity {
                             }
                         }).create().show();
                 nameView.requestFocus();
-                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             }
         });
 
