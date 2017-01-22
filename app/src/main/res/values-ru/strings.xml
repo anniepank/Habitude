@@ -2,7 +2,7 @@
     <string name="app_name">Hability</string>
     <plurals name="streak">
         <item quantity="one">
-            Один день подряд
+            ^ день подряд
         </item>
         <item quantity="other">
             ^ дней подряд
@@ -17,4 +17,40 @@
     <string name="zero_streak">
         Только начали
     </string>
+
+    <string name="greeting">Начнем с добавления привычки</string>
+
+    <string-array name="short_quotes">
+        <item>Отлично!</item>
+        <item>Прекрасно!</item>
+        <item>Великолепно!</item>
+        <item>Так держать!</item>
+        <item>Продолжай в том же духе!</item>
+        <item>Сегодня вы постарались!</item>
+        <item>Чудесно!</item>
+        <item>Молодец!</item>
+    </string-array>
+
+    <string name="delete_confirmation">Вы уверены, что хотите удалить привычку?</string>
+    <string name="delete_title">Удалить</string>
+    <string name="delete">Удалить</string>
+    <string name="edit_name_title">Редактировать имя</string>
+    <string name="done_title">Сделано!</string>
+    <string name="fifteen_minutes">15 минут</string>
+    <string name="time_for">Время для </string>
+    <string name="type_other">Другое</string>
+    <string name="type_sport">Спорт</string>
+    <string name="type_nutrition">Питание</string>
+    <string name="type_jogging">Бег</string>
+    <string name="type_meditiation">Медитация</string>
+    <string name="type_workout">Зарядка</string>
+    <string name="type_reading">Чтение</string>
+    <string name="turn_on_reminder">Включить напоминания</string>
+    <string name="mon">Пн</string>
+    <string name="tue">Вт</string>
+    <string name="wed">Ср</string>
+    <string name="thu">Чт</string>
+    <string name="fri">Пт</string>
+    <string name="sat">Сб</string>
+    <string name="sun">Вс</string>
 </resources>

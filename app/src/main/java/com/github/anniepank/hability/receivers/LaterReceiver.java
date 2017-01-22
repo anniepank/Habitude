@@ -6,6 +6,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.SystemClock;
 
 public class LaterReceiver extends BroadcastReceiver {
 
@@ -19,8 +20,9 @@ public class LaterReceiver extends BroadcastReceiver {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent laterIntent = new Intent(context, AlarmReceiver.class);
+        laterIntent.putExtra(AlarmReceiver.HABIT_NUMBER_EXTRA, intent.getIntExtra(HABIT_NUMBER_EXTRA, -1));
         PendingIntent laterPendingIntent = PendingIntent.getBroadcast(context, 104, laterIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, LATER_TIMEOUT, laterPendingIntent);
+        alarmManager.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, LATER_TIMEOUT + SystemClock.elapsedRealtime(), laterPendingIntent);
     }
 }

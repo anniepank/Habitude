@@ -32,7 +32,9 @@ public class Reminder {
 
             if (habit.remind) {
                 Calendar date = getNearestReminderDate(habit);
-
+                if (date == null) {
+                    continue;
+                }
                 long time = date.getTimeInMillis();
                 Log.d("Hability", "Planned " + habit.habitName + " in " + (time - Calendar.getInstance().getTimeInMillis()) / 1000 / 60 / 60 + " hours");
 

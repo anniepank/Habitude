@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#333"
-            android:textSize="21sp"
-            android:text="text" />
+            android:textSize="21sp" />
 
         <TextView
             android:id="@+id/streak"

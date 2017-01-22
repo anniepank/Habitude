@@ -21,13 +21,13 @@ public class Habit {
 
     public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
     static {
-        namesAndImages.put("other", new HabitType("Other", R.drawable.other));
-        namesAndImages.put("sport", new HabitType("Sport", R.drawable.sport));
-        namesAndImages.put("nutrition", new HabitType("Nutrition", R.drawable.nutrition));
-        namesAndImages.put("jogging", new HabitType("Jogging", R.drawable.jogging));
-        namesAndImages.put("meditation", new HabitType("Meditation", R.drawable.meditation));
-        namesAndImages.put("workout", new HabitType("Workout", R.drawable.workout));
-        namesAndImages.put("reading", new HabitType("Reading", R.drawable.reading));
+        namesAndImages.put("other", new HabitType(R.string.type_other, R.drawable.other));
+        namesAndImages.put("sport", new HabitType(R.string.type_sport, R.drawable.sport));
+        namesAndImages.put("nutrition", new HabitType(R.string.type_nutrition, R.drawable.nutrition));
+        namesAndImages.put("jogging", new HabitType(R.string.type_jogging, R.drawable.jogging));
+        namesAndImages.put("meditation", new HabitType(R.string.type_meditiation, R.drawable.meditation));
+        namesAndImages.put("workout", new HabitType(R.string.type_workout, R.drawable.workout));
+        namesAndImages.put("reading", new HabitType(R.string.type_reading, R.drawable.reading));
     }
 
     public void toggleDay(long day) {

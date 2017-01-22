@@ -8,7 +8,7 @@
 
         android:id="@+id/activity_new_habit"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context="com.github.anniepank.hability.activities.NewHabitActivity">
 
@@ -20,7 +20,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt"
-                android:text="Other" />
+                tools:text="Other" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -31,7 +31,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt_right"
-                android:text="Sport" />
+                tools:text="Sport" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -42,7 +42,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt"
-                android:text="Nutrition" />
+                tools:text="Nutrition" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -53,7 +53,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt_right"
-                android:text="Jogging" />
+                tools:text="Jogging" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -64,7 +64,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt"
-                android:text="Meditation" />
+                tools:text="Meditation" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -75,7 +75,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt_right"
-                android:text="Workout" />
+                tools:text="Workout" />
         </RelativeLayout>
 
         <RelativeLayout style="@style/habit_type_item">
@@ -86,7 +86,7 @@
 
             <TextView
                 style="@style/habit_type_item_txt"
-                android:text="Reading" />
+                tools:text="@string/type_reading" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -5,10 +5,10 @@ package com.github.anniepank.hability.data;
  */
 
 public class HabitType {
-    public String name;
+    public int name;
     public int image;
 
-    public HabitType(String name, int image) {
+    public HabitType(int name, int image) {
         this.name = name;
         this.image = image;
     }

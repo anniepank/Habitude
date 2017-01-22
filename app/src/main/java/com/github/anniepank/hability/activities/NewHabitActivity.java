@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -37,6 +38,9 @@ public class NewHabitActivity extends AppCompatActivity {
             final RelativeLayout element = (RelativeLayout) container.getChildAt(i);
             final ImageView image = (ImageView) element.getChildAt(0);
 
+            final TextView text = (TextView) element.getChildAt(1);
+            text.setText(Habit.namesAndImages.get(key).name);
+
             image.post(new Runnable() {
                 @Override
                 public void run() {
@@ -58,7 +62,7 @@ public class NewHabitActivity extends AppCompatActivity {
         Habit habit = new Habit();
         habit.days = new LinkedList<>();
         habit.type = key;
-        habit.habitName = Habit.namesAndImages.get(key).name;
+        habit.habitName = getResources().getString(Habit.namesAndImages.get(key).name);
         Settings.get(this).habits.add(habit);
         Settings.get(this).save(this);
     }

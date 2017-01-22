@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hability</string>
+    <string name="app_name">Habitude</string>
     <plurals name="streak">
         <item quantity="one">
             One day streak
@@ -31,4 +31,19 @@
     <string name="done_title">Done!</string>
     <string name="fifteen_minutes">15 minutes</string>
     <string name="time_for">"It's time for "</string>
+    <string name="type_other">Other</string>
+    <string name="type_sport">Sport</string>
+    <string name="type_nutrition">Nutrition</string>
+    <string name="type_jogging">Jogging</string>
+    <string name="type_meditiation">Meditation</string>
+    <string name="type_workout">Workout</string>
+    <string name="type_reading">Reading</string>
+    <string name="turn_on_reminder">Turn on reminder</string>
+    <string name="mon">Mon</string>
+    <string name="tue">Tue</string>
+    <string name="wed">Wed</string>
+    <string name="thu">Thu</string>
+    <string name="fri">Fri</string>
+    <string name="sat">Sat</string>
+    <string name="sun">Sun</string>
 </resources>
