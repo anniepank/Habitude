@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
             intent.putExtra(NewHabitActivity.FIRST_START_EXTRA, true);
             startActivityForResult(intent, 0);
+            Intent intentSlider = new Intent(this, IntroActivity.class);
+            startActivity(intentSlider);
         }
         Reminder.scheduleNotifications(this);
     }
@@ -74,4 +76,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         refreshView();
     }
+
+
 }

@@ -3,6 +3,7 @@ package com.github.anniepank.hability;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.github.anniepank.hability.activities.EditHabitActivity;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import static com.github.anniepank.hability.R.layout.habit_line_view;
 
@@ -67,6 +69,7 @@ public class HabitLineView extends LinearLayout {
 
                     if (checkboxes[finalI].isChecked) {
                         Snackbar.make(coordinatorLayout, Motivation.getShortMotivation(getContext()), Snackbar.LENGTH_SHORT).show();
+                        FirebaseAnalytics.getInstance(getContext()).logEvent("Checked", new Bundle());
                     }
                     updateStreak();
                 }

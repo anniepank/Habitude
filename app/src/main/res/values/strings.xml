@@ -31,7 +31,7 @@
     <string name="done_title">Done!</string>
     <string name="fifteen_minutes">15 minutes</string>
     <string name="time_for">"It's time for "</string>
-    <string name="type_other">Other</string>
+    <string name="type_other">Your own</string>
     <string name="type_sport">Sport</string>
     <string name="type_nutrition">Nutrition</string>
     <string name="type_jogging">Jogging</string>
@@ -46,4 +46,12 @@
     <string name="fri">Fri</string>
     <string name="sat">Sat</string>
     <string name="sun">Sun</string>
+    <string name="slide_2_title">This is your habit list</string>
+    <string name="slide_2_descr">Tap the checkbox if you did it today</string>
+    <string name="welcome_to_hability">Welcome to Habitude!</string>
+    <string name="start">Let\'s see what we can do here</string>
+    <string name="slide3_title">This is the previous day</string>
+    <string name="slide3_desc">Stick to your habits to gain a streak!</string>
+    <string name="slide_4_title">Choose a new habit</string>
+    <string name="slide_4_desc">or make your own</string>
 </resources>

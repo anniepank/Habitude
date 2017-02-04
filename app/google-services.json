@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "108510044966",
+    "firebase_url": "https://habitude-d2e53.firebaseio.com",
+    "project_id": "habitude-d2e53",
+    "storage_bucket": "habitude-d2e53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108510044966:android:c3fb1979d9b0ea01",
+        "android_client_info": {
+          "package_name": "com.github.anniepank.hability"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "108510044966-486ookgqo29odomf6j7t1vn208s3r1ob.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0HJJLmgJZAhlhg4IPknk307wROqx18F4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "108510044966-486ookgqo29odomf6j7t1vn208s3r1ob.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

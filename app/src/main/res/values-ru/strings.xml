@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Hability</string>
     <plurals name="streak">
         <item quantity="one">
             ^ день подряд
@@ -38,7 +37,7 @@
     <string name="done_title">Сделано!</string>
     <string name="fifteen_minutes">15 минут</string>
     <string name="time_for">Время для </string>
-    <string name="type_other">Другое</string>
+    <string name="type_other">Сделать свою</string>
     <string name="type_sport">Спорт</string>
     <string name="type_nutrition">Питание</string>
     <string name="type_jogging">Бег</string>
@@ -53,4 +52,12 @@
     <string name="fri">Пт</string>
     <string name="sat">Сб</string>
     <string name="sun">Вс</string>
+    <string name="slide_2_title">Список ваших привычек</string>
+    <string name="slide_2_descr">Нажмите на галочку, если выполнили привычку</string>
+    <string name="welcome_to_hability">Добро пожаловать в Habitude!</string>
+    <string name="start">Давайте посмотрим, что тут можно делать</string>
+    <string name="slide3_title">Это предыдущий день</string>
+    <string name="slide3_desc">Придерживайтесь своих привычек каждый день!</string>
+    <string name="slide_4_title">Можно выбрать привычку из списка</string>
+    <string name="slide_4_desc">или создать свою</string>
 </resources>
