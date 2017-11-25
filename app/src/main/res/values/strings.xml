@@ -54,4 +54,5 @@
     <string name="slide3_desc">Stick to your habits to gain a streak!</string>
     <string name="slide_4_title">Choose a new habit</string>
     <string name="slide_4_desc">or make your own</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

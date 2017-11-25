@@ -57,7 +57,7 @@ public class NewHabitActivity extends AppCompatActivity {
         if (getIntent().getBooleanExtra(FIRST_START_EXTRA, false)) {
             Toast.makeText(this, R.string.greeting, Toast.LENGTH_LONG).show();
         }
-        FirebaseAnalytics.getInstance(this).logEvent("New habit opened", new Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent("New_habit_opened", new Bundle());
     }
 
     private void createHabit(String key) {
@@ -67,6 +67,6 @@ public class NewHabitActivity extends AppCompatActivity {
         habit.habitName = getResources().getString(Habit.namesAndImages.get(key).name);
         Settings.get(this).habits.add(habit);
         Settings.get(this).save(this);
-        FirebaseAnalytics.getInstance(this).logEvent("New habit created", new Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent("New_habit_created", new Bundle());
     }
 }
