@@ -36,7 +36,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         builder.setSmallIcon(R.drawable.icon)
                 .setAutoCancel(true)
                 .setContentTitle(context.getString(R.string.app_name))
-                .setContentText(context.getString(R.string.time_for) + habit.habitName)
+                .setContentText(context.getString(R.string.time_for) + habit.name)
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setPriority(Notification.PRIORITY_MAX)
                 .setContentIntent(pendingActivity)

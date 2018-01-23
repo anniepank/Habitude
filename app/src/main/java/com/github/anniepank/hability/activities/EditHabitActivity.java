@@ -67,7 +67,7 @@ public class EditHabitActivity extends AppCompatActivity {
         int habitNumber = getIntent().getIntExtra(HABIT_NUMBER_EXTRA, -1);
         currentHabit = Settings.get(this).habits.get(habitNumber);
         imageView.setImageDrawable(getResources().getDrawable(Habit.namesAndImages.get(currentHabit.type).image));
-        collapsingToolbar.setTitle(currentHabit.habitName);
+        collapsingToolbar.setTitle(currentHabit.name);
 
         setupCalendar();
 
@@ -75,7 +75,7 @@ public class EditHabitActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 final EditText nameView = new EditText(EditHabitActivity.this);
-                nameView.setText(currentHabit.habitName);
+                nameView.setText(currentHabit.name);
                 FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 FrameLayout frameLayout = new FrameLayout(EditHabitActivity.this);
                 frameLayout.addView(nameView);
@@ -171,7 +171,7 @@ public class EditHabitActivity extends AppCompatActivity {
                 long dateLong = date.getTime() / (24 * 60 * 60 * 1000);
                 dayView.setBackgroundColor(0xffffffff);
                 dayView.setTextColor(0xff000000);
-                if (currentHabit.days.contains(dateLong)) {
+                if (currentHabit.hasDate(dateLong)) {
                     Drawable drawable = getResources().getDrawable(R.drawable.calendar_highlight);
                     drawable.setBounds(0, 0, dayView.getMeasuredHeight(), dayView.getMeasuredHeight());
                     dayView.setBackground(drawable);
@@ -221,9 +221,10 @@ public class EditHabitActivity extends AppCompatActivity {
     }
 
     public void rename(String habitName) {
-        currentHabit.habitName = habitName;
+        currentHabit.name = habitName;
+        currentHabit.bump();
         Settings.get(this).save(this);
-        collapsingToolbar.setTitle(currentHabit.habitName);
+        collapsingToolbar.setTitle(currentHabit.name);
     }
 }
 

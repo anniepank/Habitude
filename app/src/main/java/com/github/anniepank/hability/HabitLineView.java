@@ -78,10 +78,10 @@ public class HabitLineView extends LinearLayout {
     }
 
     public void update() {
-        nameView.setText(currentHabit.habitName);
+        nameView.setText(currentHabit.name);
         updateStreak();
         for (int i = 0; i < 5; i++) {
-            checkboxes[i].setChecked(currentHabit.days.contains(DateUtilities.getToday() - 4 + i));
+            checkboxes[i].setChecked(currentHabit.hasDate(DateUtilities.getToday() - 4 + i));
         }
     }
 

@@ -5,20 +5,29 @@ import com.github.anniepank.hability.R;
 
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by anya on 11/6/16.
  */
 
 public class Habit {
-    public String habitName;
-    public List<Long> days;
+    public String id;
+    public String name;
+    public List<HabitDate> days;
     public String type = "other";
+    public boolean deleted;
     public boolean[] remindDays = {false, false, false, false, false, false, false};
     public boolean remind;
     public int reminderHours;
     public int reminderMinutes;
+    public long updatedAt;
 
+
+    public Habit() {
+        deleted = false;
+        id = UUID.randomUUID().toString();
+    }
     public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
     static {
         namesAndImages.put("other", new HabitType(R.string.type_other, R.drawable.other));
@@ -31,28 +40,50 @@ public class Habit {
     }
 
     public void toggleDay(long day) {
-        if (days.contains(day)) {
-            days.remove(day);
+        if (hasDate(day)) {
+            for (HabitDate date : days) {
+                if (date.date == day) {
+                    date.deleted = true;
+                    return;
+                }
+            }
         } else {
-            days.add(day);
+            addDay(day);
         }
     }
 
-    public void addDay(long day) {
-        if (!days.contains(day)) {
-            days.add(day);
+    public boolean hasDate(long day) {
+        for (HabitDate date : days) {
+            if (date.date == day && !date.deleted) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    public void addDay(long day) {
+        for (HabitDate date : days) {
+            if (date.date == day) {
+                date.deleted = false;
+                return;
+            }
+        }
+        days.add(new HabitDate(day));
     }
 
     public int getStreak() {
         int streak = 0;
-        if (days.contains(DateUtilities.getToday())) {
+        if (hasDate(DateUtilities.getToday())) {
             streak = 1;
         }
         long k = 1;
-        while (days.contains(DateUtilities.getToday() - k++)) {
+        while (hasDate(DateUtilities.getToday() - k++)) {
             streak++;
         }
         return streak;
+    }
+
+    public void bump() {
+        updatedAt = System.currentTimeMillis();
     }
 }

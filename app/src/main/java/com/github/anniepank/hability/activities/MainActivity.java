@@ -16,6 +16,7 @@ import com.github.anniepank.hability.HabitLineView;
 import com.github.anniepank.hability.ImageOfTheDay;
 import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.Reminder;
+import com.github.anniepank.hability.Synchronizer;
 import com.github.anniepank.hability.data.Settings;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,6 +59,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intentSlider);
         }
         Reminder.scheduleNotifications(this);
+
+        if (Settings.get(this).syncKey != null) {
+            Synchronizer.sync(this);
+        }
     }
 
     @Override

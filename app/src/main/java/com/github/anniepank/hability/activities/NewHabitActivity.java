@@ -64,7 +64,7 @@ public class NewHabitActivity extends AppCompatActivity {
         Habit habit = new Habit();
         habit.days = new LinkedList<>();
         habit.type = key;
-        habit.habitName = getResources().getString(Habit.namesAndImages.get(key).name);
+        habit.name = getResources().getString(Habit.namesAndImages.get(key).name);
         Settings.get(this).habits.add(habit);
         Settings.get(this).save(this);
         FirebaseAnalytics.getInstance(this).logEvent("New_habit_created", new Bundle());

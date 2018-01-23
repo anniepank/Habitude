@@ -1,5 +1,6 @@
 package com.github.anniepank.hability.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import com.github.anniepank.hability.data.Settings;
 public class LoginActivity extends Activity {
     private WebView webView;
 
+    @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

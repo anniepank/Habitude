@@ -36,7 +36,7 @@ public class Reminder {
                     continue;
                 }
                 long time = date.getTimeInMillis();
-                Log.d("Hability", "Planned " + habit.habitName + " in " + (time - Calendar.getInstance().getTimeInMillis()) / 1000 / 60 / 60 + " hours");
+                Log.d("Hability", "Planned " + habit.name + " in " + (time - Calendar.getInstance().getTimeInMillis()) / 1000 / 60 / 60 + " hours");
 
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }
