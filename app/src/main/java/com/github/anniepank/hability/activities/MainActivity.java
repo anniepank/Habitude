@@ -61,7 +61,17 @@ public class MainActivity extends AppCompatActivity {
         Reminder.scheduleNotifications(this);
 
         if (Settings.get(this).syncKey != null) {
-            Synchronizer.sync(this);
+            Synchronizer.sync(this, new Synchronizer.ISyncCallback() {
+                @Override
+                public void onFinished() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            refreshView();
+                        }
+                    });
+                }
+            });
         }
     }
 

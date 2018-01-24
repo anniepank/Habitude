@@ -70,7 +70,7 @@ public class Settings {
 
             JsonArray days = habit.getAsJsonArray("days");
 
-            if (days.get(0).isJsonPrimitive()) {
+            if (days.size() > 0 && days.get(0).isJsonPrimitive()) {
                 for (int i = 0; i < days.size(); i++) {
                     JsonObject habitDate = new JsonObject();
                     habitDate.addProperty("date", days.get(i).getAsLong());

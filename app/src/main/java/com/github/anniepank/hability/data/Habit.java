@@ -3,6 +3,7 @@ package com.github.anniepank.hability.data;
 import com.github.anniepank.hability.DateUtilities;
 import com.github.anniepank.hability.R;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.UUID;
@@ -27,7 +28,16 @@ public class Habit {
     public Habit() {
         deleted = false;
         id = UUID.randomUUID().toString();
+        days = new ArrayList<>();
     }
+
+    public Habit(String id, String name, boolean deleted) {
+        days = new ArrayList<>();
+        this.id = id;
+        this.name = name;
+        this.deleted = deleted;
+    }
+
     public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
     static {
         namesAndImages.put("other", new HabitType(R.string.type_other, R.drawable.other));
