@@ -12,7 +12,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.io.IOException;
-import java.util.Date;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -101,6 +100,7 @@ public class Synchronizer {
                                 for (HabitDate habitDate : habit.days) {
                                     if (habitDate.id.equals(jsonDate.get("id").getAsString())) {
                                         habitDate.deleted = jsonDate.get("deleted").getAsBoolean();
+                                        Log.i("changing habit  date", String.valueOf(habitDate.date));
                                     }
                                 }
                             }
@@ -108,13 +108,12 @@ public class Synchronizer {
                     } else {
                         for (Habit habit : Settings.get(context).habits) {
                             if (habit.id.equals(jsonDate.get("habitId").getAsString())) {
-                                String[] dateStr = jsonDate.get("date").getAsString().split("-");
                                 HabitDate habitDate = new HabitDate();
                                 habitDate.id = jsonDate.get("id").getAsString();
-                                habitDate.date = new Date(Integer.valueOf(dateStr[0]) - 1900, Integer.valueOf(dateStr[1]) - 1, Integer.valueOf(dateStr[2]) + 1).getTime() / 1000 / 60 / 60 / 24;
+                                habitDate.date = jsonDate.get("date").getAsLong();
                                 habitDate.deleted = jsonDate.get("deleted").getAsBoolean();
                                 habit.days.add(habitDate);
-
+                                Log.i("adding habit  date", String.valueOf(habitDate.date));
                             }
                         }
                     }

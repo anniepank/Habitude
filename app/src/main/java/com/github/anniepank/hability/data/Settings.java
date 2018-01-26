@@ -2,7 +2,6 @@ package com.github.anniepank.hability.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 import com.github.anniepank.hability.Reminder;
 import com.google.gson.Gson;
@@ -41,7 +40,7 @@ public class Settings {
         SharedPreferences prefs = context.getSharedPreferences(NAME, 0);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY, json);
-        Log.i("habits", json);
+        // Log.i("habits", json);
         editor.apply();
         Reminder.scheduleNotifications(context);
     }
