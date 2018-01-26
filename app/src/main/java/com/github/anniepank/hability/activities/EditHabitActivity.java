@@ -26,6 +26,7 @@ import com.github.anniepank.hability.CircleCheckBox;
 import com.github.anniepank.hability.CustomCalendarView;
 import com.github.anniepank.hability.R;
 import com.github.anniepank.hability.Reminder;
+import com.github.anniepank.hability.Synchronizer;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 import com.samsistemas.calendarview.decor.DayDecorator;
@@ -200,9 +201,7 @@ public class EditHabitActivity extends AppCompatActivity {
                     .setMessage(R.string.delete_confirmation)
                     .setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
-                            Settings.get(EditHabitActivity.this).habits.remove(currentHabit);
-                            Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
-                            finish();
+                            delete();
                             dialog.dismiss();
                         }
                     })
@@ -220,11 +219,23 @@ public class EditHabitActivity extends AppCompatActivity {
         return true;
     }
 
+    private void delete() {
+        currentHabit.deleted = true;
+        currentHabit.bump();
+
+        Settings.get(EditHabitActivity.this).save(EditHabitActivity.this);
+        finish();
+
+        Synchronizer.sync(this, null);
+    }
+
     public void rename(String habitName) {
         currentHabit.name = habitName;
         currentHabit.bump();
         Settings.get(this).save(this);
         collapsingToolbar.setTitle(currentHabit.name);
+
+        Synchronizer.sync(this, null);
     }
 }
 

@@ -29,6 +29,8 @@ public class Habit {
         deleted = false;
         id = UUID.randomUUID().toString();
         days = new ArrayList<>();
+        bump();
+
     }
 
     public Habit(String id, String name, boolean deleted) {
@@ -36,6 +38,7 @@ public class Habit {
         this.id = id;
         this.name = name;
         this.deleted = deleted;
+        bump();
     }
 
     public final static LinkedHashMap<String, HabitType> namesAndImages = new LinkedHashMap<>();
@@ -54,6 +57,7 @@ public class Habit {
             for (HabitDate date : days) {
                 if (date.date == day) {
                     date.deleted = true;
+                    date.bump();
                     return;
                 }
             }
@@ -75,6 +79,7 @@ public class Habit {
         for (HabitDate date : days) {
             if (date.date == day) {
                 date.deleted = false;
+                date.bump();
                 return;
             }
         }

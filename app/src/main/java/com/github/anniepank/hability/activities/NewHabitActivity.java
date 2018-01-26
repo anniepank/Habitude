@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.anniepank.hability.R;
+import com.github.anniepank.hability.Synchronizer;
 import com.github.anniepank.hability.data.Habit;
 import com.github.anniepank.hability.data.Settings;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -68,5 +69,7 @@ public class NewHabitActivity extends AppCompatActivity {
         Settings.get(this).habits.add(habit);
         Settings.get(this).save(this);
         FirebaseAnalytics.getInstance(this).logEvent("New_habit_created", new Bundle());
+
+        Synchronizer.sync(this, null);
     }
 }

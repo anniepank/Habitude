@@ -8,6 +8,10 @@ import java.util.Date;
 
 public class DateUtilities {
     public static long getToday() {
-        return new Date().getTime() / (24 * 60 * 60 * 1000);
+        return dateToNumber(new Date());
+    }
+
+    public static long dateToNumber(Date date) {
+        return date.getTime() / (24 * 60 * 60 * 1000);
     }
 }

@@ -60,19 +60,19 @@ public class MainActivity extends AppCompatActivity {
         }
         Reminder.scheduleNotifications(this);
 
-        if (Settings.get(this).syncKey != null) {
-            Synchronizer.sync(this, new Synchronizer.ISyncCallback() {
-                @Override
-                public void onFinished() {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            refreshView();
-                        }
-                    });
-                }
-            });
-        }
+
+        Synchronizer.sync(this, new Synchronizer.ISyncCallback() {
+            @Override
+            public void onFinished() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshView();
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
@@ -97,6 +97,8 @@ public class MainActivity extends AppCompatActivity {
         bigNewButton.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
         newHabitButton.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
         for (int i = 0; i < settings.habits.size(); i++) {
+            if (settings.habits.get(i).deleted) continue;
+
             HabitLineView hlv = new HabitLineView(this, settings.habits.get(i), (CoordinatorLayout) findViewById(R.id.coordinator));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
             hlv.setLayoutParams(params);
