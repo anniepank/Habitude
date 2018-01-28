@@ -72,6 +72,7 @@ public class HabitLineView extends LinearLayout {
                         FirebaseAnalytics.getInstance(getContext()).logEvent("Checked", new Bundle());
                     }
                     updateStreak();
+                    Synchronizer.sync(getContext(), null);
                 }
             });
         }

@@ -2,9 +2,22 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <item
         android:id="@+id/sync"
         android:icon="@android:drawable/stat_notify_sync"
         android:title="Synchronize"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/login"
+        android:icon="@android:drawable/stat_notify_sync"
+        android:title="Login"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/logout"
+        android:icon="@drawable/ic_exit_to_app_white_24dp"
+        android:title="Stop syncing"
+        app:showAsAction="never" />
 </menu>

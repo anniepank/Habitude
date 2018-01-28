@@ -20,8 +20,10 @@ android {
     lintOptions {
         checkReleaseBuilds false
         abortOnError false
+        disable 'RestrictedApi'
     }
 }
+
 
 repositories {
     maven { url "https://jitpack.io" }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.github.anniepank.hability.HabitLineView;
 import com.github.anniepank.hability.ImageOfTheDay;
@@ -22,7 +23,7 @@ import com.github.anniepank.hability.data.Settings;
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mainScroll;
     private FloatingActionButton newHabitButton, bigNewButton;
-
+    private final int RQSC_Login = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,15 +79,40 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
+        updateMenu(menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.sync) {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            return true;
+        switch (item.getItemId()) {
+            case R.id.login: {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, 1);
+                return true;
+            }
+            case R.id.logout: {
+                Settings settings = Settings.get(this);
+                settings.syncKey = null;
+                settings.save(this);
+                refreshView();
+                break;
+            }
+
+            case R.id.sync: {
+                Synchronizer.sync(this, new Synchronizer.ISyncCallback() {
+                    @Override
+                    public void onFinished() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Synchronized", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                });
+                break;
+            }
         }
         return false;
     }
@@ -105,10 +131,37 @@ public class MainActivity extends AppCompatActivity {
             mainScroll.addView(hlv);
             hlv.update();
         }
+        invalidateOptionsMenu();
+    }
+
+    public void updateMenu(Menu mainMenu) {
+        Settings settings = Settings.get(this);
+        MenuItem loginItem = mainMenu.findItem(R.id.login);
+        MenuItem logoutItem = mainMenu.findItem(R.id.logout);
+        MenuItem syncItem = mainMenu.findItem(R.id.sync);
+
+        logoutItem.setVisible(settings.syncKey != null);
+        loginItem.setVisible(settings.syncKey == null);
+        syncItem.setVisible(settings.syncKey != null);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1: {
+                Synchronizer.sync(this, new Synchronizer.ISyncCallback() {
+                    @Override
+                    public void onFinished() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                refreshView();
+                            }
+                        });
+                    }
+                });
+            }
+        }
         refreshView();
     }
 

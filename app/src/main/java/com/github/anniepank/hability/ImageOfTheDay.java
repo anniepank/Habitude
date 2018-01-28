@@ -70,15 +70,20 @@ public class ImageOfTheDay {
     }
 
     private static void loadImageIfOffline(ImageView imageView) {
+
         if (Settings.get(imageView.getContext()).cachedImageOfTheDayUrl == null) {
             return;
         }
-        if (isContextDestroyed(imageView.getContext())) return;
-        Glide.with(imageView.getContext())
-                .load(Settings.get(imageView.getContext()).cachedImageOfTheDayUrl)
-                .placeholder(R.drawable.placeholder)
-                .crossFade()
-                .into(imageView);
+        try {
+            if (isContextDestroyed(imageView.getContext())) return;
+            Glide.with(imageView.getContext())
+                    .load(Settings.get(imageView.getContext()).cachedImageOfTheDayUrl)
+                    .placeholder(R.drawable.placeholder)
+                    .crossFade()
+                    .into(imageView);
+        } catch (IllegalArgumentException e) {
+
+        }
     }
 
     private static boolean isConnected(Context context) {
