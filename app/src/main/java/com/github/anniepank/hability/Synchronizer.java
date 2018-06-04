@@ -57,7 +57,7 @@ public class Synchronizer {
         OkHttpClient client = new OkHttpClient();
         RequestBody body = RequestBody.create(JSON, payload);
         Request request = new Request.Builder()
-                .url("http://habitude.by:9000/api/synchronize")
+                .url("http://habitude.top/api/synchronize")
                 .post(body)
                 .build();
         client.newCall(request).enqueue(new Callback() {
@@ -119,7 +119,10 @@ public class Synchronizer {
                     }
                 }
 
-                Settings.get(context).save(context);
+                Settings settings = Settings.get(context);
+                settings.deleteOldDates();
+                settings.save(context);
+
                 if (callback != null) {
                     callback.onFinished();
                 }

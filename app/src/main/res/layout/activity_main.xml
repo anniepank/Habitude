@@ -41,20 +41,63 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
+
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:orientation="horizontal"
+                android:id="@+id/websiteLink"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/colorAccent">
+
+                <TextView
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manage and sync your habits online"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/intro"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/intro"
+                    android:layout_marginLeft="10dp"
+                    android:text="habitude.top"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:id="@+id/closeButton"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_close_white_24dp"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true">
+                android:id="@+id/habitsScroll">
+
                 <LinearLayout
                     android:orientation="vertical"
                     android:id="@+id/mainScroll"
@@ -66,7 +109,7 @@
 
             </ScrollView>
 
-        </RelativeLayout>
+        </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -50,7 +50,11 @@
 
         <activity
             android:name=".activities.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
+            android:theme="@style/Theme.AppCompat.DayNight"
+            android:label="@string/title_activity_login" />
+        <activity
+            android:name=".activities.SyncIntroActivity"
+            android:label="@string/title_activity_sync_intro"></activity>
     </application>
 
 </manifest>

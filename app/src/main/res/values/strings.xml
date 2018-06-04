@@ -55,4 +55,5 @@
     <string name="slide_4_title">Choose a new habit</string>
     <string name="slide_4_desc">or make your own</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_sync_intro">SyncIntroActivity</string>
 </resources>

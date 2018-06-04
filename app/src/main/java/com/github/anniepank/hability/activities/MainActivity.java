@@ -9,8 +9,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.github.anniepank.hability.HabitLineView;
@@ -23,6 +25,7 @@ import com.github.anniepank.hability.data.Settings;
 public class MainActivity extends AppCompatActivity {
     private LinearLayout mainScroll;
     private FloatingActionButton newHabitButton, bigNewButton;
+    private RelativeLayout websiteLink;
     private final int RQSC_Login = 1;
 
     @Override
@@ -35,12 +38,13 @@ public class MainActivity extends AppCompatActivity {
         newHabitButton = (FloatingActionButton) findViewById(R.id.new_habit);
         bigNewButton = (FloatingActionButton) findViewById(R.id.new_habit_big);
         ImageView imageView = (ImageView) findViewById(R.id.backdrop);
+        websiteLink = (RelativeLayout) findViewById(R.id.websiteLink);
+        final ImageView closeLinkButton = (ImageView) findViewById(R.id.closeButton);
 
         ImageOfTheDay.loadImage(imageView);
 
         refreshView();
 
-        //function inside the variable
         View.OnClickListener newHabitButtonClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +55,32 @@ public class MainActivity extends AppCompatActivity {
 
         newHabitButton.setOnClickListener(newHabitButtonClickListener);
         bigNewButton.setOnClickListener(newHabitButtonClickListener);
+
+        if (!Settings.get(this).webIntroClosed) {
+            websiteLink.setVisibility(View.VISIBLE);
+        } else {
+            websiteLink.setVisibility(View.GONE);
+        }
+
+        websiteLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SyncIntroActivity.class);
+                startActivityForResult(intent, 2);
+            }
+        });
+
+        closeLinkButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((ViewGroup) websiteLink.getParent()).removeView(websiteLink);
+
+                Settings settings = Settings.get(MainActivity.this);
+                settings.webIntroClosed = true;
+                settings.save(MainActivity.this);
+
+            }
+        });
 
         if (Settings.get(this).habits.size() == 0) {
             Intent intent = new Intent(MainActivity.this, NewHabitActivity.class);
@@ -87,8 +117,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.login: {
-                Intent intent = new Intent(this, LoginActivity.class);
-                startActivityForResult(intent, 1);
+                Intent intent = new Intent(this, SyncIntroActivity.class);
+                startActivityForResult(intent, 2);
                 return true;
             }
             case R.id.logout: {
@@ -107,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(MainActivity.this, "Synchronized", Toast.LENGTH_SHORT).show();
+                                refreshView();
                             }
                         });
                     }
@@ -122,6 +153,9 @@ public class MainActivity extends AppCompatActivity {
         Settings settings = Settings.get(this);
         bigNewButton.setVisibility(settings.habits.size() == 0 ? View.VISIBLE : View.GONE);
         newHabitButton.setVisibility(settings.habits.size() != 0 ? View.VISIBLE : View.GONE);
+        if (settings.webIntroClosed) {
+            websiteLink.setVisibility(View.GONE);
+        }
         for (int i = 0; i < settings.habits.size(); i++) {
             if (settings.habits.get(i).deleted) continue;
 
@@ -160,6 +194,12 @@ public class MainActivity extends AppCompatActivity {
                         });
                     }
                 });
+                break;
+            }
+            case 2: {
+                Intent intent = new Intent(this, LoginActivity.class);
+                startActivityForResult(intent, 1);
+                break;
             }
         }
         refreshView();

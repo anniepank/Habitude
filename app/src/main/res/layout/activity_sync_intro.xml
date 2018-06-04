@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.github.anniepank.hability.activities.SyncIntroActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/laptop" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Track your habits online"
+            android:textSize="24dp"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Synchronizes with your phone"
+            android:textSize="18dp"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <Button
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/endSyncIntroButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/appIntroDefaultPaddingBottom"
+        android:background="@color/colorPrimary"
+        android:text="Get started"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

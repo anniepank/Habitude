@@ -20,6 +20,7 @@ public class Settings {
     public LinkedList<Habit> habits;
     public String cachedImageOfTheDayUrl;
     public String syncKey;
+    public boolean webIntroClosed = false;
 
     private static final String NAME = "Habits";
     private static final String KEY = "Settings";
@@ -80,5 +81,11 @@ public class Settings {
         }
 
         return new Gson().toJson(jo);
+    }
+
+    public void deleteOldDates() {
+        for (Habit habit : habits) {
+            if (habit.deleted) habit.days = new LinkedList<HabitDate>();
+        }
     }
 }

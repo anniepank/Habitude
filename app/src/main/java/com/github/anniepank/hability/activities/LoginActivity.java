@@ -31,6 +31,7 @@ public class LoginActivity extends Activity {
                     String key = url.substring(url.lastIndexOf("/") + 1).replace("#", "");
                     Log.i("KEY: ", key);
                     Settings.get(LoginActivity.this).syncKey = key;
+                    Settings.get(LoginActivity.this).webIntroClosed = true;
                     Settings.get(LoginActivity.this).save(LoginActivity.this);
                     finish();
                 }
@@ -38,7 +39,7 @@ public class LoginActivity extends Activity {
         });
         webView.getSettings().setUserAgentString("user-agent-string");
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://habitude.by:9000/api/app-google-login");
+        webView.loadUrl("http://habitude.top/api/app-google-login");
 
         clearCookies(this);
     }
